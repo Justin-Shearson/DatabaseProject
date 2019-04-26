@@ -6,6 +6,9 @@
 /* Make the background color light blue. */
 body {
 	background-color: lightblue;
+	background-image: url(cwru1.jpg), url(cwru1.jpg);
+	background-position: left top, right top;
+	background-repeat: no-repeat;
 }
 
 /* Set the padding of blocks at 50px. */
@@ -27,46 +30,18 @@ p {
 	font-size: 30px;
 }
 
-/* Class: Button
-   Usage: Create an interactive button that takes the user to specified links. */
-.button {
-	display: inline-block;
-	border-radius: 4px;
+/* Format used for link buttons */
+a:link, a:visited {
 	background-color: blue;
-	border: none;
-	color: white;
+	color: gold;
+	padding: 15px 25px;
 	text-align: center;
-	font-size: 14px;
-	padding: 20px;
-	width: 100px;
-	transition: all 0.5s;
-	cursor: pointer;
-	margin: 10px;
-}
-
-.button span {
-	cursor: pointer;
+	text-decoration: none;
 	display: inline-block;
-	position: relative;
-	transition: 0.5s;
 }
 
-.button span:after {
-	content: '\00bb';
-	position: absolute;
-	opacity: 0;
-	top: 0;
-	right: -20px;
-	transition: 0.5s;
-}
-
-.button:hover span {
-	padding-right: 25px;
-}
-
-.button:hover span:after {
-	opacity: 1;
-	right: 0;
+a:hover, a:active {
+	background-color: white;
 }
 
 /* Class: Center
@@ -76,4 +51,12 @@ p {
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
+}
+
+/* Changing the border of images in the website with this id*/
+#imid {
+	border-radius: 50%;
+	object-fit: cover;
+	width: 800px;
+	height: 400px;
 }
