@@ -4,7 +4,7 @@
    will be using blue, white, and gray as the colors. */
 
 /* Make the background color light blue. */
-body {
+#bodyformat {
 	background-color: lightblue;
 	background-image: url(cwru1.jpg), url(cwru1.jpg);
 	background-position: left top, right top;
@@ -12,7 +12,7 @@ body {
 }
 
 /* Set the padding of blocks at 50px. */
-div {
+#divformat {
 	padding: 50px;
 }
 
@@ -32,16 +32,17 @@ p {
 
 /* Format used for link buttons */
 a:link, a:visited {
-	background-color: blue;
-	color: gold;
+	background-color: black;
+	color: lightblue;
 	padding: 15px 25px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
+	font-size: 30px;
 }
 
 a:hover, a:active {
-	background-color: white;
+	background-color: blue;
 }
 
 /* Class: Center
@@ -59,4 +60,11 @@ a:hover, a:active {
 	object-fit: cover;
 	width: 800px;
 	height: 400px;
+}
+
+#bcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
