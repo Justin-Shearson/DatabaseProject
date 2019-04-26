@@ -1,0 +1,79 @@
+/* The styles that we are going to use for our website
+   We are using CSS to implement this. We want our style
+   to be related to Case Western, so a lot of our aspects
+   will be using blue, white, and gray as the colors. */
+
+/* Make the background color light blue. */
+body {
+	background-color: lightblue;
+}
+
+/* Set the padding of blocks at 50px. */
+div {
+	padding: 50px;
+}
+
+/* Format used for all header1's. */
+h1 {
+	text-align: center;
+	color: dodgerblue;
+	font-size: 60px;
+}
+
+/* Format used for all paragraphs. */
+p {
+	text-align: center;
+	color: blue;
+	font-size: 30px;
+}
+
+/* Class: Button
+   Usage: Create an interactive button that takes the user to specified links. */
+.button {
+	display: inline-block;
+	border-radius: 4px;
+	background-color: blue;
+	border: none;
+	color: white;
+	text-align: center;
+	font-size: 14px;
+	padding: 20px;
+	width: 100px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 10px;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
+/* Class: Center
+   Usage: Used to make images centered. */
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
