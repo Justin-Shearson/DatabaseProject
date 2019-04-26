@@ -7,6 +7,7 @@
 #bodyformat {
 	background-color: lightblue;
 	background-image: url(cwru1.jpg), url(cwru1.jpg);
+	background-size: 300px 300px, 300px 300px;
 	background-position: left top, right top;
 	background-repeat: no-repeat;
 }
@@ -62,6 +63,7 @@ a:hover, a:active {
 	height: 400px;
 }
 
+/* Format for the main web page button. */
 #bcenter {
 	display: block;
 	margin-left: auto;
