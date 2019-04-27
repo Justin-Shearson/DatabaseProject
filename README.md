@@ -1,5 +1,11 @@
-Kareem's branch
+Project for EECS 341
 
-Currently working on the Front-End for the project using HTML/CSS.
+[Possibly useful webpage](https://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972)
 
-Will connect to database after format for the page is complete.
+#Setup
+```
+virtualenv -p `which python3` venv
+source venv/bin/activate
+pip install flask
+pip install mysql-connector
+```
