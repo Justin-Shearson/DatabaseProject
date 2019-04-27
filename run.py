@@ -23,8 +23,28 @@ def execute(sql):
 	database.commit()
 	cursor.close()
 	db.close()
+"""
+@app.route('/')
+def basic_response():
+	return 'This worked!'
+"""
+"""
+@app.route('/')
+	def homepage_response():
+"""
+@app.route('/', methods=['GET', 'POST'])
+def template_response():
+	if request.method == 'POST':
+		return render_template('secondpage.html')
 
+	return render_template('index.html')
 
+def index():
+	return render_template('index.html')
 
-if __name__ == '__main__'
+def secondpage():
+	return render_template('secondpage.html')
+# @app.route('/', methods['GET', 'POST'])
+
+if __name__ == '__main__':
 	app.run(**config['app'])
