@@ -1,0 +1,27 @@
+<!-- The main web page for Food@CWRU. Introduces the user
+	 to the website and has a button leading to the 
+	 uses of the website. -->
+<!DOCTYPE html>
+<html>
+	<!-- Head of the website that includes the title -->
+	<head>
+		<!-- The style sheet that is used for the website format -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/wpstyles.css') }}">
+		<!-- Title of the website: Food@CWRU -->
+		<title>Food@CWRU, a platform to find Case events with food.</title>
+	</head>
+	<!-- The body of the Website homepage. Currently a Work In Progress -->
+	<body id="bodyformat">
+		<div id="divformat">
+			<!-- First header, specifies the name of the website -->
+			<h1>Food@CWRU</h1>
+			<!-- Picture of the burger on the website -->
+			<img id="imid" src="{{url_for('static', filename='images/food1.jpg')}}" alt="Picture of a delicious burger" class="center">
+			<!-- Simple description of Food@CWRU -->
+			<p>Welcome to Food@CWRU! Find events with food on campus every single day!</p>
+		</div>
+		<div id="divformat">
+			<!-- Test button at the moment -->
+			<a id="bcenter" href="{{ url_for('secondpage')}}" target="_top">Let's Get Started!</a>
+		</div>
+	</body>
