@@ -1,5 +1,5 @@
 import configparser
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect, request
 import mysql.connector
 
 config = configparser.ConfigParser()
@@ -23,26 +23,18 @@ def execute(sql):
 	database.commit()
 	cursor.close()
 	db.close()
-"""
-@app.route('/')
-def basic_response():
-	return 'This worked!'
-"""
-"""
-@app.route('/')
-	def homepage_response():
-"""
+
 @app.route('/')
 def template_response():
-	return render_template('secondpage.html')
-
-
-def index():
 	return render_template('index.html')
 
+# @app.route('/', methods=['GET', 'POST'])
+# def index():
+# 	return render_template('index.html')
+
+@app.route('/secondpage')
 def secondpage():
 	return render_template('secondpage.html')
-# @app.route('/', methods['GET', 'POST'])
 
 if __name__ == '__main__':
 	app.run(**config['app'])
