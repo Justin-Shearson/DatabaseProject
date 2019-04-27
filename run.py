@@ -32,12 +32,10 @@ def basic_response():
 @app.route('/')
 	def homepage_response():
 """
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def template_response():
-	if request.method == 'POST':
-		return render_template('secondpage.html')
+	return render_template('secondpage.html')
 
-	return render_template('index.html')
 
 def index():
 	return render_template('index.html')
