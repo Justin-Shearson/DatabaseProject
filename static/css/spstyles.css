@@ -2,7 +2,7 @@
 /* Make the background color light blue. */
 #bodyformat {
 	background-color: lightblue;
-	background-image: url(cwru1.jpg), url(cwru1.jpg);
+	background-image: url('../images/cwru1.jpg'), url('../images/cwru1.jpg');
 	background-size: 300px 300px, 300px 300px;
 	background-position: left top, right top;
 	background-repeat: no-repeat;
