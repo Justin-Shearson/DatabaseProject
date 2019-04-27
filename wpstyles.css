@@ -1,0 +1,72 @@
+/* The styles that we are going to use for our website
+   We are using CSS to implement this. We want our style
+   to be related to Case Western, so a lot of our aspects
+   will be using blue, white, and gray as the colors. */
+
+/* Make the background color light blue. */
+#bodyformat {
+	background-color: lightblue;
+	background-image: url(cwru1.jpg), url(cwru1.jpg);
+	background-size: 300px 300px, 300px 300px;
+	background-position: left top, right top;
+	background-repeat: no-repeat;
+}
+
+/* Set the padding of blocks at 50px. */
+#divformat {
+	padding: 50px;
+}
+
+/* Format used for all header1's. */
+h1 {
+	text-align: center;
+	color: dodgerblue;
+	font-size: 60px;
+}
+
+/* Format used for all paragraphs. */
+p {
+	text-align: center;
+	color: blue;
+	font-size: 30px;
+}
+
+/* Format used for link buttons */
+a:link, a:visited {
+	background-color: black;
+	color: lightblue;
+	padding: 15px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 30px;
+}
+
+a:hover, a:active {
+	background-color: blue;
+}
+
+/* Class: Center
+   Usage: Used to make images centered. */
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+/* Changing the border of images in the website with this id*/
+#imid {
+	border-radius: 50%;
+	object-fit: cover;
+	width: 800px;
+	height: 400px;
+}
+
+/* Format for the main web page button. */
+#bcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
