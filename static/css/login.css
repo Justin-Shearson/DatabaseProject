@@ -68,3 +68,26 @@ button:hover {
 	padding: 16px;
 	text-align: center;
 }
+
+/* Format used for link buttons */
+a:link, a:visited {
+	background-color: black;
+	color: lightblue;
+	padding: 15px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 30px;
+}
+
+a:hover, a:active {
+	background-color: blue;
+}
+
+/* Format for the main web page button. */
+#bcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 25%;
+}
