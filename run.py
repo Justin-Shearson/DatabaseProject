@@ -48,7 +48,7 @@ def signup():
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.curosr()
-	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s AND u.password = %s", (username, password))
 	user = cursor.fetchall()
 
 	#If the user already exists
@@ -58,11 +58,12 @@ def signup():
 		return "That username already exists"
 	else:
 		cursor.execute("INSERT INTO Users(name, password, IsOrganizer) VALUES(%s, %s, %s)", (username, password, organizer))
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+		cursor.execute("SELECT name FROM Users u WHERE u.name = %s AND u.password = %s", (username, password))
 		user = cursor.fetchone()
 		cursor.close()
 		database.close()
 		return redirect(url_for('index'))
+
 
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent", methods=['GET', 'POST'])
@@ -71,14 +72,14 @@ def addevent():
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.curosr()
-	cursor.execute("SELECT")
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s ")
 
 #Used to render the webpage for the main website
 def index():
 	return render_template('index.html')
 
 #Routes to the main page of the website
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def template_response():
 	return render_template('index.html')
 
