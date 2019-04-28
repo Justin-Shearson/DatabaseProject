@@ -24,6 +24,46 @@ def execute(sql):
 	cursor.close()
 	db.close()
 
+@app.route("/execlogin", methods=['GET', 'POST'])
+def login():
+	username = str(request.form['username'])
+	password = str(request.form['password'])
+	database = mysql.connector.connect(**config['mysql.connector'])
+	curosr = database.cursor()
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+	user = cursor.fetchone()
+	cursor.close()
+	database.close()
+	if len(user) is 1:
+		return redirect(url_for('index'),)
+	else:
+		return "Username or password is incorrect!"
+
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
+	username = str(request.form['username'])
+	password = str(request.form['password'])
+	organizer = str(request.form['organizer'])
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.curosr()
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+	user = cursor.fetchall()
+
+	if len(user) != 0:
+		cursor.close()
+		database.close()
+		return "That username already exists"
+	else:
+		cursor.execute("INSERT INTO Users(name, password, IsOrganizer) VALUES(%s, %s, %s)", (username, password, organizer))
+		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+		user = cursor.fetchone()
+		cursor.close()
+		database.close()
+		return redirect(url_for('index'))
+
+def index():
+	return render_template('index.html')
+
 @app.route('/')
 def template_response():
 	return render_template('index.html')
