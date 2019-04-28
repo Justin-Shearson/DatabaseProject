@@ -87,6 +87,11 @@ def template_response():
 def secondpage():
 	return render_template('secondpage.html')
 
+#Currently used to route to the login page of the website
+@app.route('/loginpage')
+def loginpage():
+	return render_template('loginpage.html')
+
 #Run the server
 if __name__ == '__main__':
 	app.run(**config['app'])
