@@ -112,3 +112,11 @@ label {
 	text-align: center;
 	font-size: 30px;
 }
+
+/* Format used for select boxes. */
+select {
+	display: inline-block;
+	font-size: 20px;
+	color: lightblue;
+	background-color: grey;
+}

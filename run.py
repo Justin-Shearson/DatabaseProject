@@ -25,13 +25,13 @@ def execute(sql):
 	db.close()
 
 #Executes a login check to make sure that the username does not already exist
-@app.route("/execlogin", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
 		username = str(request.form['username'])
 		password = str(request.form['password'])
 		database = mysql.connector.connect(**config['mysql.connector'])
-		curosr = database.cursor()
+		cursor = database.cursor()
 		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
 		user = cursor.fetchone()
 		cursor.close()
@@ -90,7 +90,6 @@ def execsignup(username, password, IsOrganizer):
 	cursor.commit()
 	cursor.close()
 	database.close()
-
 
 #Currently used to route to the second page of the website
 @app.route('/events')
