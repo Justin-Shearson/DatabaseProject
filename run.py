@@ -89,18 +89,18 @@ def execsignup(username, password, IsOrganizer):
 
 
 #Currently used to route to the second page of the website
-@app.route('/secondpage')
-def secondpage():
-	return render_template('secondpage.html')
+@app.route('/events')
+def events():
+	return render_template('events.html')
 
 #Currently used to route to the login page of the website
-@app.route('/loginpage', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def loginpage():
 	if request.method == "POST":
 		contents = request.form
 		username = contents['uname']
 		password = contents['psw']
-	return render_template('loginpage.html')
+	return render_template('login.html')
 
 #Run the server
 if __name__ == '__main__':
