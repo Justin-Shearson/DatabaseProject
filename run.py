@@ -78,10 +78,15 @@ def addevent():
 def index():
 	return render_template('index.html')
 
-#Routes to the main page of the website
-# @app.route('/index')
-# def template_response():
-# 	return render_template('index.html')
+def execsignup(username, password, IsOrganizer):
+	sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES({},{},{})".format(username,password,IsOrganizer)
+	database = mysql.connector.connect(**config['mysql.connector'])
+	curosr = database.cursor()
+	cursor.execute(sql)
+	cursor.commit()
+	cursor.close()
+	database.close()
+
 
 #Currently used to route to the second page of the website
 @app.route('/secondpage')
@@ -89,8 +94,12 @@ def secondpage():
 	return render_template('secondpage.html')
 
 #Currently used to route to the login page of the website
-@app.route('/loginpage')
+@app.route('/loginpage', methods = ['GET', 'POST'])
 def loginpage():
+	if request.method == "POST":
+		contents = request.form
+		username = contents['uname']
+		password = contents['psw']
 	return render_template('loginpage.html')
 
 #Run the server
