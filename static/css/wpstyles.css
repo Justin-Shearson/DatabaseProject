@@ -1,4 +1,4 @@
-/* The styles that we are going to use for our website
+/* The styles that we are going to use for our main web page.
    We are using CSS to implement this. We want our style
    to be related to Case Western, so a lot of our aspects
    will be using blue, white, and gray as the colors. */
@@ -15,6 +15,31 @@
 /* Set the padding of blocks at 50px. */
 #divformat {
 	padding: 50px;
+}
+
+/* Changing the border of images in the website with this id*/
+#imid {
+	border-radius: 50%;
+	object-fit: cover;
+	width: 800px;
+	height: 400px;
+}
+
+/* Format for the main web page button. */
+#bcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+/* Class: Center
+   Usage: Used to make images centered. */
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
 
 /* Format used for all header1's. */
@@ -39,34 +64,11 @@ a:link, a:visited {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 30px;
+	font-size: 35px;
+	margin-top: 10px;
 }
 
+/* Animation when hovering over link buttons. */
 a:hover, a:active {
 	background-color: blue;
-}
-
-/* Class: Center
-   Usage: Used to make images centered. */
-.center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-}
-
-/* Changing the border of images in the website with this id*/
-#imid {
-	border-radius: 50%;
-	object-fit: cover;
-	width: 800px;
-	height: 400px;
-}
-
-/* Format for the main web page button. */
-#bcenter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
 }

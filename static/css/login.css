@@ -1,4 +1,5 @@
 /* Login CSS format. */
+
 /* Make the background color light blue. */
 #bodyformat {
 	background-color: lightblue;
@@ -11,6 +12,30 @@
 /* Set the padding of blocks at 50px. */
 #divformat {
 	padding: 50px;
+}
+
+/* Format for the main web page button. */
+#bcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 25%;
+}
+
+/* Class: Center
+   Usage: Used to make images centered. */
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+/* Class: Container
+   Usage: Used to make a container for blocks. */
+.container {
+	padding: 16px;
+	text-align: center;
 }
 
 /* Format used for all header1's. */
@@ -27,19 +52,12 @@ p {
 	font-size: 30px;
 }
 
-/* Class: Center
-   Usage: Used to make images centered. */
-.center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-}
-
+/* Format used for form. */
 form {
 	border: 3px solid #f1f1f1;
 }
 
+/* Format used for the input boxes. */
 input[type=text], input[type=password] {
 	width: 100%;
 	padding: 12px 20px;
@@ -49,6 +67,12 @@ input[type=text], input[type=password] {
 	box-sizing: border-box;
 }
 
+input[type=text]:focus, input[type=password]:focus {
+	background-color: #ddd;
+	outline: none;
+}
+
+/* Format used for the buttons. */
 button {
 	background-color: blue;
 	color: white;
@@ -57,16 +81,12 @@ button {
 	border: none;
 	cursor: pointer;
 	width: 100%
-	font-size: 40px;
+	font-size: 50px;
 }
 
+/* The animation used when hovering over a button. */
 button:hover {
 	opacity: 0.6;
-}
-
-.container {
-	padding: 16px;
-	text-align: center;
 }
 
 /* Format used for link buttons */
@@ -77,17 +97,26 @@ a:link, a:visited {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 30px;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
+/* Animation when hovering over link buttons. */
 a:hover, a:active {
 	background-color: blue;
 }
 
-/* Format for the main web page button. */
-#bcenter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 25%;
+/* Format used for labels. */
+label {
+	display: inline-block;
+	text-align: center;
+	font-size: 30px;
+}
+
+/* Format used for select boxes. */
+select {
+	display: inline-block;
+	font-size: 20px;
+	color: lightblue;
+	background-color: grey;
 }

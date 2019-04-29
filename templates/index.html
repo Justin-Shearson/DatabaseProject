@@ -19,9 +19,8 @@
 			<img id="imid" src="{{url_for('static', filename='images/food1.jpg')}}" alt="Picture of a delicious burger" class="center">
 			<!-- Simple description of Food@CWRU -->
 			<p>Welcome to Food@CWRU! Find events with food on campus every single day!</p>
-		</div>
-		<div id="divformat">
-			<!-- Test button at the moment -->
-			<a id="bcenter" href="{{ url_for('loginpage')}}" target="_top">Let's Get Started!</a>
+			<!-- Two buttons. One for login and one to create an account. -->
+			<a id="bcenter" href="{{ url_for('login')}}" target="_top">Login!</a>
+			<a id="bcenter" href="{{ url_for('signup')}}" target="_top">Sign Up!</a>
 		</div>
 	</body>
