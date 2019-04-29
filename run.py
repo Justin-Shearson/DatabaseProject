@@ -46,6 +46,7 @@ def login():
 #Routes to the page to check if the input username is already in use
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+	if request.method = "POST":
 	username = str(request.form['username'])
 	password = str(request.form['password'])
 	organizer = str(request.form['organizer'])
@@ -89,7 +90,6 @@ def execsignup(username, password, IsOrganizer):
 	cursor.close()
 	database.close()
 
-
 #Currently used to route to the second page of the website
 @app.route('/events')
 def events():
@@ -103,6 +103,11 @@ def loginpage():
 		username = contents['uname']
 		password = contents['psw']
 	return render_template('login.html')
+
+#Currently used to route to the login page of the website
+@app.route('/loginpage')
+def loginpage():
+	return render_template('loginpage.html')
 
 #Run the server
 if __name__ == '__main__':
