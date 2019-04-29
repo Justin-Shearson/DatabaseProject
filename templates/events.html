@@ -14,6 +14,7 @@
 	<body id="bodyformat">
 		<!-- The first block of information containing the instructions. -->
 		<div id="divformat">
+			<!-- Explaining how to use the website. -->
 			<h1>Food@CWRU</h1>
 			<p>So here's how it works. Use the navigation menu to select
 			<br>the events page you'd like to see. Preferred events is
@@ -21,6 +22,7 @@
 			<br>the special food events for the day. Use the search bar
 			<br>to search for specific events. </p>
 		</div>
+		<!-- Block for the navigation bar and the iframe that will contain the tables. -->
 		<div class="topnav">
 			<a href="#" target="f1">Home</a>
 			<a href="#" target="f1">Preferred Events</a>
@@ -33,6 +35,8 @@
 			</div>
 			<a href="#" target="f1">Add Events</a>
 			<a href="#" target="f1">Delete Events</a>
+			<a href="{{url_for('index')}}" target="_top">Back to Homepage</a>
+			<a href="{{url_for('loginpage')}}" target="_top">Back to Login</a>
 			<input type="text" placeholder="Search" name="search">
 		</div>
 		<iframe src="" style="border: none; background-color: lightblue;" name="f1"></iframe>
