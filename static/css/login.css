@@ -1,0 +1,93 @@
+/* Login CSS format. */
+/* Make the background color light blue. */
+#bodyformat {
+	background-color: lightblue;
+	background-image: url('../images/cwru1.jpg'), url('../images/cwru1.jpg');
+	background-size: 300px 300px, 300px 300px;
+	background-position: left top, right top;
+	background-repeat: no-repeat;
+}
+
+/* Set the padding of blocks at 50px. */
+#divformat {
+	padding: 50px;
+}
+
+/* Format used for all header1's. */
+h1 {
+	text-align: center;
+	color: dodgerblue;
+	font-size: 60px;
+}
+
+/* Format used for all paragraphs. */
+p {
+	text-align: center;
+	color: blue;
+	font-size: 30px;
+}
+
+/* Class: Center
+   Usage: Used to make images centered. */
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+form {
+	border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+button {
+	background-color: blue;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%
+	font-size: 40px;
+}
+
+button:hover {
+	opacity: 0.6;
+}
+
+.container {
+	padding: 16px;
+	text-align: center;
+}
+
+/* Format used for link buttons */
+a:link, a:visited {
+	background-color: black;
+	color: lightblue;
+	padding: 15px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 30px;
+}
+
+a:hover, a:active {
+	background-color: blue;
+}
+
+/* Format for the main web page button. */
+#bcenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 25%;
+}

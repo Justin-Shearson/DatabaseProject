@@ -48,7 +48,7 @@ def signup():
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.curosr()
-	cursor.execute("SELECT name FROM Users u WHERE u.name = %s AND u.password = %s", (username, password))
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
 	user = cursor.fetchall()
 
 	#If the user already exists
@@ -58,12 +58,11 @@ def signup():
 		return "That username already exists"
 	else:
 		cursor.execute("INSERT INTO Users(name, password, IsOrganizer) VALUES(%s, %s, %s)", (username, password, organizer))
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s AND u.password = %s", (username, password))
+		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
 		user = cursor.fetchone()
 		cursor.close()
 		database.close()
 		return redirect(url_for('index'))
-
 
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent", methods=['GET', 'POST'])
@@ -72,21 +71,27 @@ def addevent():
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.curosr()
-	cursor.execute("SELECT name FROM Users u WHERE u.name = %s ")
+	cursor.execute("SELECT")
 
 #Used to render the webpage for the main website
+@app.route('/')
 def index():
 	return render_template('index.html')
 
 #Routes to the main page of the website
-@app.route('/', methods = ['GET', 'POST'])
-def template_response():
-	return render_template('index.html')
+# @app.route('/index')
+# def template_response():
+# 	return render_template('index.html')
 
 #Currently used to route to the second page of the website
 @app.route('/secondpage')
 def secondpage():
 	return render_template('secondpage.html')
+
+#Currently used to route to the login page of the website
+@app.route('/loginpage')
+def loginpage():
+	return render_template('loginpage.html')
 
 #Run the server
 if __name__ == '__main__':
