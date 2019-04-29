@@ -74,13 +74,14 @@ def addevent():
 	cursor.execute("SELECT")
 
 #Used to render the webpage for the main website
+@app.route('/')
 def index():
 	return render_template('index.html')
 
 #Routes to the main page of the website
-@app.route('/')
-def template_response():
-	return render_template('index.html')
+# @app.route('/index')
+# def template_response():
+# 	return render_template('index.html')
 
 #Currently used to route to the second page of the website
 @app.route('/secondpage')
