@@ -64,7 +64,8 @@ a:link, a:visited {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 30px;
+	font-size: 35px;
+	margin-top: 10px;
 }
 
 /* Animation when hovering over link buttons. */

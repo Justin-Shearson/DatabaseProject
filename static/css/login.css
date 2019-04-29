@@ -67,6 +67,11 @@ input[type=text], input[type=password] {
 	box-sizing: border-box;
 }
 
+input[type=text]:focus, input[type=password]:focus {
+	background-color: #ddd;
+	outline: none;
+}
+
 /* Format used for the buttons. */
 button {
 	background-color: blue;
@@ -76,7 +81,7 @@ button {
 	border: none;
 	cursor: pointer;
 	width: 100%
-	font-size: 40px;
+	font-size: 50px;
 }
 
 /* The animation used when hovering over a button. */
@@ -92,7 +97,8 @@ a:link, a:visited {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 30px;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
 /* Animation when hovering over link buttons. */
@@ -104,4 +110,5 @@ a:hover, a:active {
 label {
 	display: inline-block;
 	text-align: center;
+	font-size: 30px;
 }
