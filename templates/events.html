@@ -26,11 +26,12 @@
 		<div class="topnav">
 			<a href="#" target="f1">Home</a>
 			<a href="#" target="f1">Preferred Events</a>
+			<!-- Using CSS dropdown class to create a dropdown button. -->
 			<div class="dropdown">
 				<button class="dropbtn">Special Events</button>
 				<div class="dropdown-content">
-					<a href="#" target="f1">Event 1</a>
-					<a href="#" target="f1">Event 2</a>
+					<a href="#" target="f1">Free Events</a>
+					<a href="#" target="f1">Cheap Events</a>
 				</div>
 			</div>
 			<a href="#" target="f1">Add Events</a>
@@ -39,6 +40,7 @@
 			<a href="{{url_for('loginpage')}}" target="_top">Back to Login</a>
 			<input type="text" placeholder="Search" name="search">
 		</div>
-		<iframe src="" style="border: none; background-color: lightblue;" name="f1"></iframe>
+		<p>Test frame for tables</p>
+		<iframe src="" width="100%" height="600" style="border: none; background-color: black; margin-top: 10px;" name="f1">S</iframe>
 	</body>
 </html>
