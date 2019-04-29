@@ -46,7 +46,7 @@ def login():
 #Routes to the page to check if the input username is already in use
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-	if request.method = "POST":
+	if request.method == 'POST':
 	username = str(request.form['username'])
 	password = str(request.form['password'])
 	organizer = str(request.form['organizer'])
