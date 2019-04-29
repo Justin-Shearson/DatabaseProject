@@ -8,10 +8,7 @@
 	</head>
 	<!-- Body of the login page. -->
 	<body id="bodyformat">
-
-		<!-- HERE IS WHERE WE WANT TO PUT A REDIRECT, THIS IS THE BUTTON-->
-
-		<a id="bcenter" href="{{url_for('index')}}">Testing</a>
+		<a id="bcenter" href="{{url_for('index')}}"target="_top">Back to homepage</a>
 		<!-- The first block of the website. -->
 		<div id="divformat">
 			<h1>Login Page</h1>
@@ -21,13 +18,13 @@
 	<form action="">
 		<div class="container">
 			<label for="uname"><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="uname" required>
+			<input id="bcenter" type="text" placeholder="Enter Username" name="uname" required>
 
 			<label for="psw"><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="psw" required>
+			<input id="bcenter" type="password" placeholder="Enter Password" name="psw" required>
 
-			<button class="center" type="submit">Login</button>
-			<button class="center" type="submit">Create Account</button>
+			<button id="bcenter" type="submit">Login</button>
+			<button id="bcenter" type="submit">Create Account</button>
 		</div>
 	</form>
 	</body>

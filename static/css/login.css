@@ -91,3 +91,8 @@ a:hover, a:active {
 	margin-right: auto;
 	width: 25%;
 }
+
+label {
+	display: inline-block;
+	text-align: center;
+}
