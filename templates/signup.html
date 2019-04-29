@@ -1,0 +1,43 @@
+<!-- Create account web page. -->
+<!DOCTYPE html>
+<html>
+	<!-- Head of the Login Page. Contains the CSS link and title of website. -->
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+		<title>Food@CWRU, the create account page for the website.</title>
+	</head>
+	<!-- Body of the create account page. -->
+	<body id="bodyformat">
+		<a id="bcenter" href="{{url_for('index')}}"target="_top">Back to homepage</a>
+		<!-- The first block of the website. -->
+		<div>
+			<h1>Sign Up Page</h1>
+			<img src="{{url_for('static', filename='images/user.png')}}" alt="Picture of a User" class="center" style="width: 256px;height: 256px;">
+			<p>Sign up for an account!</p>
+		</div>
+
+	<!-- A form for users to sign up for an account. -->
+	<form action="" method="POST">
+		<div class="container">
+			<!-- Labels and input boxes for sign up. There is also a checkbox for people who are organizers. -->
+			<label for="username"><b>Username</b></label>
+			<input id="bcenter" type="text" placeholder="Enter Username" name="username" required>
+
+			<label for="password"><b>Password</b></label>
+			<input id="bcenter" type="password" placeholder="Enter Password" name="password" required>
+
+			<label for="password-repeat"><b>Repeat Password</b></label>
+			<input id="bcenter" type="password" placeholder="Repeat Password" name="password-repeat" required>
+
+			<label for="org"><b>Organization. Select None if you are not a part of an organization.</b></label>
+			<select id="bcenter">
+				<option value="0">None</option>
+				<option value="1">MSA</option>
+			</select>
+			
+			<button id="bcenter" type="submit">Sign Up</button>
+		</div>
+		
+	</form>
+	</body>
+</html>
