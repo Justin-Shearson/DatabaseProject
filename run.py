@@ -25,20 +25,23 @@ def execute(sql):
 	db.close()
 
 #Executes a login check to make sure that the username does not already exist
-@app.route("/execlogin", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-	username = str(request.form['username'])
-	password = str(request.form['password'])
-	database = mysql.connector.connect(**config['mysql.connector'])
-	curosr = database.cursor()
-	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
-	user = cursor.fetchone()
-	cursor.close()
-	database.close()
-	if len(user) is 1:
-		return redirect(url_for('index'))
-	else:
-		return "Username or password is incorrect!"
+	if request.method == 'POST':
+		username = str(request.form['uname'])
+		password = str(request.form['psw'])
+		database = mysql.connector.connect(**config['mysql.connector'])
+		cursor = database.cursor()
+		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+		user = cursor.fetchone()
+		cursor.close()
+		database.close()
+		if len(user) is 1:
+			return redirect(url_for('index'))
+		else:
+			print(user)
+			return "Username or password is incorrect!"
+	return render_template('loginpage.html')
 
 #Routes to the page to check if the input username is already in use
 @app.route("/signup", methods=['GET', 'POST'])
