@@ -36,7 +36,7 @@ def login():
 	cursor.close()
 	database.close()
 	if len(user) is 1:
-		return redirect(url_for('index'),)
+		return redirect(url_for('index'))
 	else:
 		return "Username or password is incorrect!"
 
@@ -48,7 +48,7 @@ def signup():
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.curosr()
-	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password, organizer))
 	user = cursor.fetchall()
 
 	#If the user already exists
@@ -57,8 +57,7 @@ def signup():
 		database.close()
 		return "That username already exists"
 	else:
-		cursor.execute("INSERT INTO Users(name, password, IsOrganizer) VALUES(%s, %s, %s)", (username, password, organizer))
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+		execsignup(username, password, organizer)
 		user = cursor.fetchone()
 		cursor.close()
 		database.close()
@@ -89,18 +88,18 @@ def execsignup(username, password, IsOrganizer):
 
 
 #Currently used to route to the second page of the website
-@app.route('/secondpage')
-def secondpage():
-	return render_template('secondpage.html')
+@app.route('/events')
+def events():
+	return render_template('events.html')
 
 #Currently used to route to the login page of the website
-@app.route('/loginpage', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def loginpage():
 	if request.method == "POST":
 		contents = request.form
 		username = contents['uname']
 		password = contents['psw']
-	return render_template('loginpage.html')
+	return render_template('login.html')
 
 #Run the server
 if __name__ == '__main__':
