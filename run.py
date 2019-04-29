@@ -27,45 +27,41 @@ def execute(sql):
 #Executes a login check to make sure that the username does not already exist
 @app.route("/execlogin", methods=['GET', 'POST'])
 def login():
-	if request.method == 'POST':
-		username = str(request.form['username'])
-		password = str(request.form['password'])
-		database = mysql.connector.connect(**config['mysql.connector'])
-		curosr = database.cursor()
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
-		user = cursor.fetchone()
-		cursor.close()
-		database.close()
-		if len(user) is 1:
-			return redirect(url_for('index'))
-		else:
-			return "Username or password is incorrect!"
-	return render_template('loginpage.html')
+	username = str(request.form['username'])
+	password = str(request.form['password'])
+	database = mysql.connector.connect(**config['mysql.connector'])
+	curosr = database.cursor()
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+	user = cursor.fetchone()
+	cursor.close()
+	database.close()
+	if len(user) is 1:
+		return redirect(url_for('index'))
+	else:
+		return "Username or password is incorrect!"
 
 #Routes to the page to check if the input username is already in use
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-	if request.method == 'POST':
-		username = str(request.form['username'])
-		password = str(request.form['password'])
-		organizer = str(request.form['organizer'])
-		database = mysql.connector.connect(**config['mysql.connector'])
-		cursor = database.curosr()
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password, organizer))
-		user = cursor.fetchall()
+	username = str(request.form['username'])
+	password = str(request.form['password'])
+	organizer = str(request.form['organizer'])
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.curosr()
+	cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password, organizer))
+	user = cursor.fetchall()
 
-		#If the user already exists
-		if len(user) != 0:
-			cursor.close()
-			database.close()
-			return "That username already exists"
-		else:
-			execsignup(username, password, organizer)
-			user = cursor.fetchone()
-			cursor.close()
-			database.close()
-			return redirect(url_for('index'))
-	return render_template('signup.html')
+	#If the user already exists
+	if len(user) != 0:
+		cursor.close()
+		database.close()
+		return "That username already exists"
+	else:
+		execsignup(username, password, organizer)
+		user = cursor.fetchone()
+		cursor.close()
+		database.close()
+		return redirect(url_for('index'))
 
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent", methods=['GET', 'POST'])
