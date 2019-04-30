@@ -11,7 +11,7 @@
 
 /* Set the padding of blocks at 50px. */
 #divformat {
-	padding: 50px;
+	padding: 5px;
 }
 
 /* Format for the main web page button. */
@@ -34,7 +34,7 @@
 /* Class: Container
    Usage: Used to make a container for blocks. */
 .container {
-	padding: 16px;
+	padding: 10px;
 	text-align: center;
 }
 
