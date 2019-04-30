@@ -26,23 +26,20 @@
 	</head>
 	<body style="background-color: lightblue;">
 		<h2 id="bcenter">All Events</h2>
+		<table id = "maintable">
+			<thead>
+				<trow>
+					<td><b>Event Name</b><td>
+					<td><b>Date</b><td>
+					<td><b>Location</b><td>
+					<td><b>Caterer</b><td>
+					<td><b>Organizer</b><td>
+					<td><b>Price</b><td>
+				</trow>
+			</thead>
 		<script type="text/javascript">
 			var results = {{results}};
-			var table = document.createElement("table");
-			var thead = table.createTHead();
-			var hrow = thead.insertRow(0);
-			var tname = hrow.insertCell(0);
-			tname.innerHTML = "<b>Event Name</b>"
-			var tname = hrow.insertCell(1);
-			tname.innerHTML = "<b>Date</b>"
-			var tname = hrow.insertCell(2);
-			tname.innerHTML = "<b>Location</b>"
-			var tname = hrow.insertCell(3);
-			tname.innerHTML = "<b>Caterer</b>"
-			var tname = hrow.insertCell(4);
-			tname.innerHTML = "<b>Organizer</b>"
-			var tname = hrow.insertCell(5);
-			tname.innerHTML = "<b>Price</b>"
+			var table = document.getElementById("myRow");
 			var tbody = table.createTBody();
 			for (var i = results.length - 1; i >= 0; i--) {
 				tuple = results[i];
