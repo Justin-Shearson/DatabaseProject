@@ -93,6 +93,9 @@ def addevent(username):
 			database = mysql.connector.connect(**config['mysql.connector'])
 			sqldict = generateInsertQuery(event_name,date,organization,caterer,price,location)
 			cursor = database.cursor()
+			print(sqldict["event_insert"])
+			print(sqldict["lead_insert"])
+			print(sqldict["catered_insert"])
 			cursor.execute(sqldict["event_insert"])
 			cursor.execute(sqldict["lead_insert"])
 			cursor.execute(sqldict["catered_insert"])
@@ -105,7 +108,7 @@ def addevent(username):
 @app.route("/allevents", methods=['GET','POST'])
 def allevents():
 	if request.method == 'GET':
-		sql = "SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id = e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
+		sql = "SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.name = e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
