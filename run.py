@@ -1,6 +1,7 @@
 import configparser
 from flask import Flask, render_template, request, url_for, redirect, request
 import mysql.connector
+import time
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -48,10 +49,13 @@ def signup():
 	if request.method == 'POST':
 		username = str(request.form['username'])
 		password = str(request.form['password'])
-		organization = str(request.form['organization'])
+		organization = int(request.form['organization'])
+		print(organization)
+		time.sleep(5)
 		IsOrganizer = 0
-		if organization != 0:
+		if organization is not 0:
 			IsOrganizer = 1
+
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()		
 		cursor.execute("SELECT name FROM Users WHERE Users.name = \'{}\'".format(username))
@@ -64,11 +68,12 @@ def signup():
 			return redirect(url_for('signup'))
 
 		else:
-			# execsignup(username, password, IsOrganizer, cursor)
 			sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 			cursor.execute(sql)
 			database.commit()
-			if IsOrganizer == 1:
+			print(IsOrganizer)
+			time.sleep(5)
+			if IsOrganizer is 1:
 				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
 				userid = user[0]
@@ -76,7 +81,7 @@ def signup():
 
 			cursor.close()
 			database.close()
-			return redirect(url_for('index'))
+			return redirect(url_for('events'))
 	return render_template('signup.html')
 
 #Routes to the addevent page to add an event to the website
