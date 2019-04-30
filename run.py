@@ -105,9 +105,14 @@ def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
 def generateInsertQuery(event_name,date, organization, caterer, price, location):
-	returndict["event_insert"] =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', location_id = ( Select l.id from Locations l where l.id = '" + location + "');"
-	returndict["lead_insert"] = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
-	returndict["catered_insert"] = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
+	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', location_id = ( Select l.id from Locations l where l.id = '" + location + "');"
+	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
+	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
+	returndict = {
+		'event_insert' : event_insert,
+		'lead_insert' : lead_insert,
+		'catered_insert' : catered_insert
+	}
 	return returndict
 #Used to render the webpage for the main website
 @app.route('/')
