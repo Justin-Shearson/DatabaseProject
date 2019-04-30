@@ -163,8 +163,8 @@ def userIsOrganizer(username):
 
 #Currently used to route to the second page of the website
 @app.route('/events/<user>')
-def events(username):
-	return render_template('events.html',user=username)
+def events(user):
+	return render_template('events.html',user = username)
 
 #Run the server
 if __name__ == '__main__':
