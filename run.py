@@ -93,6 +93,10 @@ def addevent():
 def index():
 	return render_template('index.html')
 
+@app.route('/allevents')
+def allevents():
+	return render_template('allevents.html')
+
 #Helper function for the signup page. Executed when the user attempts to sign into the database
 def execsignup(username, password, IsOrganizer, cursor):
 	sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
