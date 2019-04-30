@@ -109,8 +109,8 @@ def allevents():
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
-		user = cursor.fetchall()
-		print(user)
+		returnlist = cursor.fetchall()
+		return render_template('allevents.html', results = returnlist)
 
 def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
