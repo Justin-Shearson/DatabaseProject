@@ -40,7 +40,14 @@ def login():
 		if user is None:
 			return "Username or password is incorrect!"
 		else:
-			return redirect(url_for('events'))
+			database = mysql.connector.connect(**config['mysql.connector'])
+			cursor = database.cursor()
+			cursor.execute("SELECT name, dates, price, locations_id FROM Events WHERE dates > NOW()")
+			eventlist = cursor.fetchall()
+			cursor.execute("SELECT is_organizer FROM Users WHERE username = \'{}\'".format(username))
+			organizer = cursor.fetchone()
+			IsOrganizer = organizer[0]
+			return redirect(url_for('events', events = eventlist, organizer = IsOrganizer))
 	return render_template('login.html')
 
 #Routes to the page to check if the input username is already in use
@@ -64,11 +71,11 @@ def signup():
 			database.close()
 			return redirect(url_for('signup'))
 		else:
-			sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
+			sql = "INSERT INTO Users(name, password, is_organizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 			cursor.execute(sql)
 			database.commit()
 			if IsOrganizer is 1:
-				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
+				cursor.execute("SELECT id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
 				userid = user[0]
 				assignorganizer(userid, organization)
@@ -85,7 +92,6 @@ def addevent():
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
-	cursor.execute("SELECT")
 	return render_template('addevent.html')
 
 #Used to render the webpage for the main website
@@ -113,8 +119,8 @@ def assignorganizer(userid, organization):
 
 #Currently used to route to the second page of the website
 @app.route('/events')
-def events():
-	return render_template('events.html')
+def events(events, organizer):
+	return render_template('events.html', event = events, isorganizer = organizer)
 
 #Run the server
 if __name__ == '__main__':
