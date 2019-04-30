@@ -41,7 +41,7 @@ def login():
 		if user is None:
 			return "Username or password is incorrect!"
 		else:
-			return redirect(url_for('events'))
+			return redirect(url_for('events',user=username))
 	return render_template('login.html')
 
 #Routes to the page to check if the input username is already in use
@@ -162,9 +162,9 @@ def userIsOrganizer(username):
 
 
 #Currently used to route to the second page of the website
-@app.route('/events')
-def events():
-	return render_template('events.html')
+@app.route('/events/<user>')
+def events(username):
+	return render_template('events.html',user = username)
 
 #Run the server
 if __name__ == '__main__':
