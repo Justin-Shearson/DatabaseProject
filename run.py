@@ -64,18 +64,18 @@ def signup():
 			database.close()
 			return redirect(url_for('signup'))
 		else:
-			sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
+			sql = "INSERT INTO Users(name, password, is_organizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 			cursor.execute(sql)
 			database.commit()
 			if IsOrganizer is 1:
-				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
+				cursor.execute("SELECT id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
 				userid = user[0]
 				assignorganizer(userid, organization)
 
 			cursor.close()
 			database.close()
-			return redirect(url_for('events'))
+			return redirect(url_for('login'))
 	return render_template('signup.html')
 
 #Routes to the addevent page to add an event to the website
