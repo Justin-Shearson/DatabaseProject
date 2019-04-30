@@ -1,0 +1,31 @@
+<!-- Add events to the database. -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+		<title>Page to add events to the database.</title>
+	</head>
+	<body>
+		<form action="" method="POST">
+			<label for="name"><b>Event Name</b></label>
+			<input id="bcenter" type="text" placeholder="Enter name" name="name" required>
+
+			<label for="organization"><b>Enter Organization</b></label>
+			<input id="bcenter" type="text" placeholder="Enter organization" name="organization" required>
+
+			<label for="caterer"><b>Event Caterer</b></label>
+			<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
+
+			<label for="date"><b>Event Date</b></label>
+			<input id="bcenter" type="text" placeholder="Enter date" name="date" required>
+
+			<label for="price"><b>Event Price</b></label>
+			<input id="bcenter" type="text" placeholder="Enter price" name="price" required>
+
+			<label for="location"><b>Event Location</b></label>
+			<input id="bcenter" type="text" placeholder="Enter location" name="location" required>
+
+			<button id="bcenter" type="Submit">Submit Event</button>
+		</form>
+	</body>
+</html>

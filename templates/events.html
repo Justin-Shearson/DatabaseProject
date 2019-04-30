@@ -24,23 +24,22 @@
 		</div>
 		<!-- Block for the navigation bar and the iframe that will contain the tables. -->
 		<div class="topnav">
-			<a href="#" target="f1">Home</a>
+			<a href="allevents.html" target="f1">Home</a>
 			<a href="#" target="f1">Preferred Events</a>
+			<a href="#" target="f1">Free Events</a>
 			<!-- Using CSS dropdown class to create a dropdown button. -->
 			<div class="dropdown">
-				<button class="dropbtn">Special Events</button>
+				<button class="dropbtn">Edit Events</button>
 				<div class="dropdown-content">
-					<a href="#" target="f1">Free Events</a>
-					<a href="#" target="f1">Cheap Events</a>
+					<a href="#" target="f1">Add Events</a>
+					<a href="#" target="f1">Update Events</a>
+					<a href="#" target="f1">Delete Events</a>
 				</div>
 			</div>
-			<a href="#" target="f1">Add Events</a>
-			<a href="#" target="f1">Delete Events</a>
 			<a href="{{url_for('index')}}" target="_top">Back to Homepage</a>
 			<a href="{{url_for('login')}}" target="_top">Back to Login</a>
 			<input type="text" placeholder="Search" name="search">
 		</div>
-		<p>Test frame for tables</p>
-		<iframe src="" width="100%" height="600" style="border: none; background-color: black; margin-top: 10px;" name="f1">S</iframe>
+		<iframe src="" width="100%" height="600" style="border: none; background-color: lightblue; margin-top: 10px;" name="f1"></iframe>
 	</body>
 </html>
