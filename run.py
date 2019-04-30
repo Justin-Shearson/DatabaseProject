@@ -102,6 +102,17 @@ def addevent(username):
 		return render_template('add.html')
 	return "Illegal Access"
 
+@app.route("/allevents", methods=['GET','POST'])
+def allevents():
+	if request.method == 'GET':
+		sql = "SELECT * from Events where Events.dates > now()"
+		database = mysql.connector.connect(**config['mysql.connector'])
+		cursor = database.cursor()
+		cursor.execute(sql)
+		returnlist = cursor.fetchall()
+		return render_template('allevents.html', results = returnlist)
+	return "You died"
+
 def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
