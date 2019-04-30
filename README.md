@@ -10,6 +10,8 @@ Project for EECS 341
 
 [Useful page for making a login page](https://www.w3schools.com/howto/howto_css_login_form.asp)
 
+[Passing Lists via Redirect](https://stackoverflow.com/questions/18206630/how-can-i-redirect-to-another-url-and-pass-a-list-object-using-flask)
+
 # Setup
 ```
 virtualenv -p `which python3` venv
