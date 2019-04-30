@@ -14,19 +14,33 @@
 	<body id="bodyformat">
 		<!-- The first block of information containing the instructions. -->
 		<div id="divformat">
+			<!-- Explaining how to use the website. -->
 			<h1>Food@CWRU</h1>
-			<p>So here's how it works. Use the dropdown menu to select<br>pre-determined special events for the day.
-			You will see a table with these events.<br>Or you can use the search bar to look for certain events!<br>
-			Click the preferred events button to see events that you chose to show. </p>
+			<p>So here's how it works. Use the navigation menu to select
+			<br>the events page you'd like to see. Preferred events is
+			<br>catered to your account. The special events page contains
+			<br>the special food events for the day. Use the search bar
+			<br>to search for specific events. </p>
 		</div>
-		<!-- The second block that contains the dropdown menu as explained above. -->
-		<div id="divformat" class="dropdown">
-			<button class="dropbtn">Special Events</button>
-			<div class="dropdown-content">
-				<a href="#">Event 1</a>
-				<a href="#">Event 2</a>
-				<a href="#">Event 3</a>
+		<!-- Block for the navigation bar and the iframe that will contain the tables. -->
+		<div class="topnav">
+			<a href="#" target="f1">Home</a>
+			<a href="#" target="f1">Preferred Events</a>
+			<!-- Using CSS dropdown class to create a dropdown button. -->
+			<div class="dropdown">
+				<button class="dropbtn">Special Events</button>
+				<div class="dropdown-content">
+					<a href="#" target="f1">Free Events</a>
+					<a href="#" target="f1">Cheap Events</a>
+				</div>
 			</div>
+			<a href="#" target="f1">Add Events</a>
+			<a href="#" target="f1">Delete Events</a>
+			<a href="{{url_for('index')}}" target="_top">Back to Homepage</a>
+			<a href="{{url_for('login')}}" target="_top">Back to Login</a>
+			<input type="text" placeholder="Search" name="search">
 		</div>
+		<p>Test frame for tables</p>
+		<iframe src="" width="100%" height="600" style="border: none; background-color: black; margin-top: 10px;" name="f1">S</iframe>
 	</body>
 </html>

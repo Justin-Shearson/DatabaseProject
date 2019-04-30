@@ -39,7 +39,7 @@ def login():
 		if user is None:
 			return "Username or password is incorrect!"
 		else:
-			return redirect(url_for('index'))
+			return redirect(url_for('events'))
 	return render_template('login.html')
 
 #Routes to the page to check if the input username is already in use
