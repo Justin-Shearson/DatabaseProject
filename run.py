@@ -103,7 +103,7 @@ def addevent(username):
 	return "Illegal Access"
 
 @app.route("/allevents", methods=['GET','POST'])
-def allevents()
+def allevents():
 	if request.method == 'GET':
 		sql = "SELECT * from Events where Events.dates > now()"
 		database = mysql.connector.connect(**config['mysql.connector'])
