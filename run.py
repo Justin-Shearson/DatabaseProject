@@ -95,8 +95,6 @@ def addevent(username):
 			cursor = database.cursor()
 			cursor.execute(sqldict["event_insert"])
 			cursor.execute(sqldict["lead_insert"])
-			print(sqldict["lead_insert"])
-			print(sqldict["catered_insert"])
 			cursor.execute(sqldict["catered_insert"])
 			database.commit()			
 			cursor.close()
