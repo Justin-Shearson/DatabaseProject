@@ -76,7 +76,9 @@ def signup():
 			cursor.close()
 			database.close()
 			return redirect(url_for('events'))
-	return render_template('signup.html')
+	return render_template('login.html')
+
+
 
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent", methods=['GET', 'POST'])
