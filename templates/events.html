@@ -1,0 +1,46 @@
+<!-- The second page for Food@CWRU. This is where the 
+	 CRUD and aggregate queries take place. There are
+	 pre-determined tables on the side bar and then
+	 there is a search option to find more customized results. -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Link to the CSS used for this html page -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/spstyles.css') }}">
+		<!-- Title of the website: Food@CWRU -->
+		<title>Food@CWRU, a platform to find Case events with food.</title>
+	</head>
+	<!-- The body of the web page. -->
+	<body id="bodyformat">
+		<!-- The first block of information containing the instructions. -->
+		<div id="divformat">
+			<!-- Explaining how to use the website. -->
+			<h1>Food@CWRU</h1>
+			<p>So here's how it works. Use the navigation menu to select
+			<br>the events page you'd like to see. Preferred events is
+			<br>catered to your account. The special events page contains
+			<br>the special food events for the day. Use the search bar
+			<br>to search for specific events. </p>
+		</div>
+		<!-- Block for the navigation bar and the iframe that will contain the tables. -->
+		<div class="topnav">
+			<a href="#" target="f1">Home</a>
+			<a href="#" target="f1">Preferred Events</a>
+			<!-- Using CSS dropdown class to create a dropdown button. -->
+			<div class="dropdown">
+				<button class="dropbtn">Special Events</button>
+				<div class="dropdown-content">
+					<a href="#" target="f1">Free Events</a>
+					<a href="#" target="f1">Cheap Events</a>
+				</div>
+			</div>
+			<a href="#" target="f1">Add Events</a>
+			<a href="#" target="f1">Delete Events</a>
+			<a href="{{url_for('index')}}" target="_top">Back to Homepage</a>
+			<a href="{{url_for('login')}}" target="_top">Back to Login</a>
+			<input type="text" placeholder="Search" name="search">
+		</div>
+		<p>Test frame for tables</p>
+		<iframe src="" width="100%" height="600" style="border: none; background-color: black; margin-top: 10px;" name="f1">S</iframe>
+	</body>
+</html>

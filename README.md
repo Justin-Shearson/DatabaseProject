@@ -14,3 +14,4 @@ pip install flask
 pip install mysql-connector
 ```
 
+[Useful page for making a login page](https://www.w3schools.com/howto/howto_css_login_form.asp)
