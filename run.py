@@ -50,12 +50,9 @@ def signup():
 		username = str(request.form['username'])
 		password = str(request.form['password'])
 		organization = int(request.form['organization'])
-		print(organization)
-		time.sleep(5)
 		IsOrganizer = 0
 		if organization is not 0:
 			IsOrganizer = 1
-
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()		
 		cursor.execute("SELECT name FROM Users WHERE Users.name = \'{}\'".format(username))
@@ -66,13 +63,10 @@ def signup():
 			cursor.close()
 			database.close()
 			return redirect(url_for('signup'))
-
 		else:
 			sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 			cursor.execute(sql)
 			database.commit()
-			print(IsOrganizer)
-			time.sleep(5)
 			if IsOrganizer is 1:
 				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
