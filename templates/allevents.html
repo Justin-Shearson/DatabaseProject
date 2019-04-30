@@ -29,16 +29,23 @@
 		<table id="all">
 			<tr>
 				<th>Name</th>
-				<th>Organization</th>
-				<th>Caterers</th>
 				<th>Date</th>
-				<th>Price</th>
 				<th>Location</th>
+				<th>Caterer</th>
+				<th>Organization</th>
+				<th>Price</th>
 			</tr>
+			{% for item in results %}
 			<tr>
 				<!-- FOR LOOP TO LIST ALL TUPLES FROM THE DATABASE-->
-				<td>{{results}}</td>
+				<td>{{item[1]}}</td>
+				<td>{{item[2]}}</td>
+				<td>{{item[3]}}</td>
+				<td>{{item[4]}}</td>
+				<td>{{item[5]}}</td>
+				<td>{{item[6]}}</td>
 			</tr>
+			{% endfor %}
 		</table>
 	</body>
 </html>
