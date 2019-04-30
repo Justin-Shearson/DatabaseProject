@@ -80,8 +80,8 @@ def signup():
 	return render_template('signup.html')
 
 #Routes to the addevent page to add an event to the website
-@app.route("/addevent", methods=['GET', 'POST'])
-def addevent(username, organization):
+@app.route("/addevent/<username>", methods=['GET', 'POST'])
+def addevent(username):
 	if userIsOrganizer(username):
 		if request.method == 'POST':
 			event_name = str(request.form['name'])
