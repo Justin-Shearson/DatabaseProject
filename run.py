@@ -2,6 +2,7 @@ import configparser
 from flask import Flask, render_template, request, url_for, redirect, request
 import mysql.connector
 import time
+import datetime
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -64,43 +65,60 @@ def signup():
 			database.close()
 			return redirect(url_for('signup'))
 		else:
-			sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
+			sql = "INSERT INTO Users(name, password, is_organizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 			cursor.execute(sql)
 			database.commit()
 			if IsOrganizer is 1:
-				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
+				cursor.execute("SELECT id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
 				userid = user[0]
 				assignorganizer(userid, organization)
 
 			cursor.close()
 			database.close()
-			return redirect(url_for('events'))
+			return redirect(url_for('login'))
 	return render_template('signup.html')
 
 #Routes to the addevent page to add an event to the website
-@app.route("/addevent", methods=['GET', 'POST'])
-def addevent():
-	username = str(request.form['username'])
-	organizer = str(request.form['organizer'])
-	database = mysql.connector.connect(**config['mysql.connector'])
-	cursor = database.cursor()
-	cursor.execute("SELECT")
-	return render_template('addevent.html')
+@app.route("/addevent/<username>", methods=['GET', 'POST'])
+def addevent(username):
+	if userIsOrganizer(username):
+		if request.method == 'POST':
+			event_name = str(request.form['name'])
+			organization = str(request.form['organization'])
+			caterer = str(request.form['caterer'])
+			date = str(request.form['date'])
+			price = int(request.form['price'])
+			location = str(request.form['location'])
+			database = mysql.connector.connect(**config['mysql.connector'])
+			sqldict = generateInsertQuery(event_name,date,organization,caterer,price,location)
+			cursor = database.cursor()
+			cursor.execute(sqldict["event_insert"])
+			cursor.execute(sqldict["lead_insert"])
+			cursor.execute(sqldict["catered_insert"])
+			database.commit()			
+			cursor.close()
+			database.close()
+		return render_template('add.html')
+	return "Illegal Access"
 
+def convertdatetime(date):
+    return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
+
+def generateInsertQuery(event_name,date, organization, caterer, price, location):
+	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', location_id = ( Select l.id from Locations l where l.id = '" + location + "');"
+	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
+	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
+	returndict = {
+		'event_insert' : event_insert,
+		'lead_insert' : lead_insert,
+		'catered_insert' : catered_insert
+	}
+	return returndict
 #Used to render the webpage for the main website
 @app.route('/')
 def index():
 	return render_template('index.html')
-
-@app.route('/allevents')
-def allevents():
-	return render_template('allevents.html')
-
-@app.route('/add')
-def add():
-	return render_template('add.html')
-
 
 #Helper function for the signup page. Executed when the user attempts to sign into the database
 def execsignup(username, password, IsOrganizer, cursor):
@@ -119,6 +137,18 @@ def assignorganizer(userid, organization):
 	database.commit()
 	cursor.close()
 	database.close()
+
+def userIsOrganizer(username):
+	sql = "SELECT name FROM Users WHERE Users.name = \'{}\' and Users.is_organizer = 1".format(username)
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.cursor()
+	cursor.execute(sql)
+	user = cursor.fetchone()
+	cursor.close()
+	database.close()
+	return user is not None
+
+
 
 #Currently used to route to the second page of the website
 @app.route('/events')
