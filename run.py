@@ -96,7 +96,7 @@ def addevent(username, organization):
 			cursor.execute()
 			cursor.close()
 			database.close()
-		return render_template('addevents.html')
+		return render_template('add.html')
 	return "Illegal Access"
 
 def convertdatetime(date):
