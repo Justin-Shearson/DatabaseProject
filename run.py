@@ -111,6 +111,7 @@ def allevents():
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
 		return render_template('allevents.html', results = returnlist)
+	return "You died"
 
 def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
