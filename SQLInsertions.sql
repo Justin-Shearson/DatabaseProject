@@ -42,16 +42,27 @@ Values ('Chipotle'),
 /*	Insertions into events
 	note datetime in SQL is done by YYYY-MM-DD format*/
 insert into Events
-Set name = 'Night Market',
-dates = '2018-11-09',
-locations_id = (
+Set name = 'TestEvent',
+dates = '2019-11-09',
+location_id = (
 Select l.id 
 	from Locations l 
 	where l.id = 'Thwing'
-	)
+	);
 
-/* Insertions into Lead_by*/
-insert into lead_by (events_id, organization_id)
+insert into lead_by (event_id, organization_id)
 select e.id, o.id 
 from Organizations o, Events e
-where e.name = 'Spring Fest' and o.name = 'Taiwanese American Student Association'
+where e.name = 'TestEvent' and o.name = 'Taiwanese American Student Association';
+
+insert into catered_by (event_id, caterer_id)
+select e.id, c.id 
+from Caterers c, Events e
+where e.name = 'TestEvent' and c.name = 'Chipotle'
+
+
+Delete c from Events e, catered_by c
+where e.name = 'TestEvent' and e.id = c.event_id;
+Delete l from Events e, lead_by l
+where e.name = 'TestEvent' and e.id = l.event_id;
+delete e from Events e where e.name = 'TestEvent';
