@@ -1,6 +1,7 @@
 import configparser
 from flask import Flask, render_template, request, url_for, redirect, request
 import mysql.connector
+import time
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -18,7 +19,7 @@ def query(sql):
 
 def execute(sql):
 	database = mysql.connector.connect(**config['mysql.connector'])
-	curosr = database.cursor()
+	cursor = database.cursor()
 	cursor.execute(sql)
 	database.commit()
 	cursor.close()
@@ -48,23 +49,34 @@ def signup():
 	if request.method == 'POST':
 		username = str(request.form['username'])
 		password = str(request.form['password'])
-		organization = str(request.form['org'])
-		organizer = 0
+		organization = str(request.form['organization'])
+		IsOrganizer = 0
 		if organization != 0:
-			organizer = 1
+			IsOrganizer = 1
 		database = mysql.connector.connect(**config['mysql.connector'])
-		cursor = database.curosr()
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password, organizer))
-		user = cursor.fetchall()
+		cursor = database.cursor()		
+		cursor.execute("SELECT name FROM Users WHERE Users.name = \'{}\'".format(username))
+		user = cursor.fetchone()
 
 		#If the user already exists
-		if len(user) != 0:
+		if user is not None:
 			cursor.close()
 			database.close()
 			return redirect(url_for('signup'))
+
 		else:
-			execsignup(username, password, organizer)
-			user = cursor.fetchone()
+			# execsignup(username, password, IsOrganizer, cursor)
+			sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
+			cursor.execute(sql)
+			database.commit()
+			if IsOrganizer == 1:
+				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
+				user = cursor.fetchone()
+				print(user)
+				time.sleep(2)
+				userid = user[0]
+				assignorganizer(userid, organization)
+
 			cursor.close()
 			database.close()
 			return redirect(url_for('index'))
@@ -76,7 +88,7 @@ def addevent():
 	username = str(request.form['username'])
 	organizer = str(request.form['organizer'])
 	database = mysql.connector.connect(**config['mysql.connector'])
-	cursor = database.curosr()
+	cursor = database.cursor()
 	cursor.execute("SELECT")
 	return render_template('addevent.html')
 
@@ -85,12 +97,21 @@ def addevent():
 def index():
 	return render_template('index.html')
 
-def execsignup(username, password, IsOrganizer):
-	sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES({},{},{})".format(username,password,IsOrganizer)
+#Helper function for the signup page. Executed when the user attempts to sign into the database
+def execsignup(username, password, IsOrganizer, cursor):
+	sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 	database = mysql.connector.connect(**config['mysql.connector'])
-	curosr = database.cursor()
+	cursor = database.cursor()
 	cursor.execute(sql)
-	cursor.commit()
+	cursor.close()
+	database.close()
+
+def assignorganizer(userid, organization):
+	sql = "INSERT INTO member_of VALUES({},{})".format(userid,organization)
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.cursor()
+	cursor.execute(sql)
+	database.commit()
 	cursor.close()
 	database.close()
 
