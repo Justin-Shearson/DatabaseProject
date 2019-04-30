@@ -19,6 +19,10 @@
 -- Table structure for table `Caterers`
 --
 
+create user 'team6'@'localhost' identified by '5adad0da';
+grant all on team_6.* to 'team6'@'localhost';
+flush privileges;
+
 DROP TABLE IF EXISTS `Caterers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
