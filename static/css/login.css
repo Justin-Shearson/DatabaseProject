@@ -38,6 +38,13 @@
 	text-align: center;
 }
 
+#addcontainer {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	width: 25%;
+}
+
 /* Format used for all header1's. */
 h1 {
 	text-align: center;
@@ -54,7 +61,7 @@ p {
 
 /* Format used for form. */
 form {
-	border: 3px solid #f1f1f1;
+	border: 1px solid #f1f1f1;
 }
 
 /* Format used for the input boxes. */
