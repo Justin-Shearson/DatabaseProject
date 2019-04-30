@@ -1,7 +1,6 @@
 import configparser
 from flask import Flask, render_template, request, url_for, redirect, request
 import mysql.connector
-import time
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -72,8 +71,6 @@ def signup():
 			if IsOrganizer == 1:
 				cursor.execute("SELECT Id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
-				print(user)
-				time.sleep(2)
 				userid = user[0]
 				assignorganizer(userid, organization)
 
