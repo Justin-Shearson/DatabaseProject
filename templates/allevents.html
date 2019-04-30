@@ -1,0 +1,50 @@
+<!-- The home page of the events page. Lists all events that are in our database. -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			table, th, td {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			th, td {
+				padding: 15px;
+				text-align: left;
+			}
+			table#all {
+				width: 100%;
+				background-color: dodgerblue;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			#bcenter {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		</style>
+		<title>All events page. Shows all events in our SQL Database.</title>
+	</head>
+	<body style="background-color: lightblue;">
+		<h2 id="bcenter">All Events</h2>
+		<table id="all">
+			<tr>
+				<th>Name</th>
+				<th>Organization</th>
+				<th>Caterers</th>
+				<th>Date</th>
+				<th>Price</th>
+				<th>Location</th>
+			</tr>
+			{% for item in results %}
+			<tr>
+				<!-- FOR LOOP TO LIST ALL TUPLES FROM THE DATABASE-->
+				<td>{{item[0]}}</td>
+				<td>{{item[1]}}</td>
+				<td>{{item[2]}}</td>
+				<td>{{item[3]}}</td>
+				<td>{{item[4]}}</td>
+				<td>{{item[5]}}</td>
+			</tr>
+		</table>
+	</body>
+</html>

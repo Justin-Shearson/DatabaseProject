@@ -19,6 +19,10 @@
 -- Table structure for table `Caterers`
 --
 
+<<<<<<< HEAD:Dump20190430.sql
+=======
+
+>>>>>>> 76b9ea9e64785c07303388d47b7e174e26158f7b:Dump20190430.sql
 create user 'team6'@'localhost' identified by '5adad0da';
 grant all on team_6.* to 'team6'@'localhost';
 flush privileges;
@@ -55,6 +59,7 @@ CREATE TABLE `Events` (
   `name` varchar(45) DEFAULT NULL,
   `dates` datetime DEFAULT NULL,
   `price` decimal(2,0) DEFAULT '0',
+<<<<<<< HEAD:Dump20190430.sql
   `location_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idEvents_UNIQUE` (`id`),
@@ -62,6 +67,14 @@ CREATE TABLE `Events` (
   KEY `event_location_idx` (`location_id`),
   CONSTRAINT `event_location` FOREIGN KEY (`location_id`) REFERENCES `Locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+=======
+  `locations_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idEvents_UNIQUE` (`id`),
+  KEY `event_location_idx` (`locations_id`),
+  CONSTRAINT `event_location` FOREIGN KEY (`locations_id`) REFERENCES `Locations` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+>>>>>>> 76b9ea9e64785c07303388d47b7e174e26158f7b:Dump20190430.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,10 +95,10 @@ DROP TABLE IF EXISTS `Locations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Locations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `hub` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -131,15 +144,16 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `is_organizer` tinyint(4) NOT NULL DEFAULT '0',
+  `isOrganizer` tinyint(4) NOT NULL DEFAULT '0',
   `locations_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`Id`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `location_id_fk_idx` (`locations_id`),
-  CONSTRAINT `location_id_fk` FOREIGN KEY (`locations_id`) REFERENCES `Locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `location_id_fk` FOREIGN KEY (`locations_id`) REFERENCES `Locations` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+>>>>>>> 76b9ea9e64785c07303388d47b7e174e26158f7b:Dump20190430.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -187,12 +201,12 @@ DROP TABLE IF EXISTS `lead_by`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lead_by` (
-  `event_id` int(11) NOT NULL,
+  `events_id` int(11) NOT NULL,
   `organization_id` int(11) NOT NULL,
-  KEY `event_id_idx` (`event_id`),
+  KEY `event_id_idx` (`events_id`),
   KEY `organization id_idx` (`organization_id`),
-  CONSTRAINT `event id` FOREIGN KEY (`event_id`) REFERENCES `Events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `organization id` FOREIGN KEY (`organization_id`) REFERENCES `Organizations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `event id` FOREIGN KEY (`events_id`) REFERENCES `Events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `organization id` FOREIGN KEY (`organization_id`) REFERENCES `Organizations` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Relational Table for events and Organizations';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,9 +231,9 @@ CREATE TABLE `member_of` (
   `user_id` int(11) NOT NULL,
   `organization_id` int(11) NOT NULL,
   KEY `user_id_idx` (`user_id`),
-  KEY `organization id_idx` (`organization_id`),
-  CONSTRAINT `organizations id` FOREIGN KEY (`organization_id`) REFERENCES `Organizations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `user id` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `organization_id_idx` (`organization_id`,`user_id`),
+  CONSTRAINT `host organization` FOREIGN KEY (`organization_id`) REFERENCES `Organizations` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user id` FOREIGN KEY (`user_id`) REFERENCES `Users` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Relation between Organizations and Users which describes what organizations User is a member of';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -245,7 +259,7 @@ CREATE TABLE `prefers` (
   KEY `user id_idx` (`user_id`),
   KEY `preferred caterer_idx` (`caterer_id`),
   CONSTRAINT `preferred caterer` FOREIGN KEY (`caterer_id`) REFERENCES `Caterers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `user preference` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `user preference` FOREIGN KEY (`user_id`) REFERENCES `Users` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='What caterers the user prefers';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
