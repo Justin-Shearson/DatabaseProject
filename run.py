@@ -82,7 +82,7 @@ def signup():
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent", methods=['GET', 'POST'])
 def addevent(username, organization):
-	if userIsOrganizer(username)
+	if userIsOrganizer(username):
 		if request.method == 'POST':
 			event_name = str(request.form['name'])
 			organization = str(request.form['organization'])
@@ -103,12 +103,7 @@ def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
 def generateInsertQuery(event_name,date, organization, caterer, price, location):
-	return "INSERT INTO Events SET name = '" + event_name + "', dates ='" + convertdatetime(date) +
-	"', location_id = ( Select l.id from Locations l where l.id = '" + location + "');" +
-	"INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+
-	event_name +"' AND o.name = '" + organization + "';"+
-	"INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Cateres c, Events e where e.name = '" +
-	event_name + "' AND c.name = '" + caterer + "';"
+	return "INSERT INTO Events SET name = '" + event_name + "', dates ='" + convertdatetime(date) + "', location_id = ( Select l.id from Locations l where l.id = '" + location + "');" +"INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"+"INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Cateres c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
 #Used to render the webpage for the main website
 @app.route('/')
 def index():
@@ -132,7 +127,7 @@ def assignorganizer(userid, organization):
 	cursor.close()
 	database.close()
 
-def userIsOrganizer(username)
+def userIsOrganizer(username):
 	sql = "SELECT name FROM Users WHERE Users.name = \'{}\' and Users.is_organizer = 1".format(username)
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
