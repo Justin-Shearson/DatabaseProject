@@ -77,17 +77,23 @@ def signup():
 			database.close()
 			return redirect(url_for('login'))
 	return render_template('signup.html')
->>>>>>> 062bab5d0e0564d115cc854c0b095b0325373041
 
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent", methods=['GET', 'POST'])
-def addevent():
-	username = str(request.form['username'])
-	organizer = str(request.form['organizer'])
-	database = mysql.connector.connect(**config['mysql.connector'])
-	cursor = database.cursor()
-	cursor.execute("SELECT")
-	return render_template('addevent.html')
+def addevent(username, organization):
+	if userIsOrganizer(username)
+		if request.method == 'POST':
+			event_name = str(request.form['name'])
+			organization = str(request.form['organization'])
+			caterer = str(request.form['caterer'])
+			date = str(request.form['date'])
+			price = int(request.form['price'])
+			location = str(request.form['location'])
+			database = mysql.connector.connect(**config['mysql.connector'])
+			cursor = database.cursor()
+			cursor.execute("SELECT")
+		return render_template('addevent.html')
+	return "Illegal Access"
 
 #Used to render the webpage for the main website
 @app.route('/')
@@ -111,6 +117,18 @@ def assignorganizer(userid, organization):
 	database.commit()
 	cursor.close()
 	database.close()
+
+def userIsOrganizer(username)
+	sql = "SELECT name FROM Users WHERE Users.name = \'{}\' and Users.is_organizer = 1".format(username)
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.cursor()
+	cursor.execute(sql)
+	user = cursor.fetchone()
+	cursor.close()
+	database.close()
+	return user is not None
+
+
 
 #Currently used to route to the second page of the website
 @app.route('/events')
