@@ -44,10 +44,10 @@ def login():
 			cursor = database.cursor()
 			cursor.execute("SELECT name, dates, price, locations_id FROM Events WHERE dates > NOW()")
 			eventlist = cursor.fetchall()
-			cursor.execute("SELECT is_organizer FROM Users WHERE username = \'{}\'".format(username))
+			cursor.execute("SELECT IsOrganizer FROM Users WHERE name = \'{}\'".format(username))
 			organizer = cursor.fetchone()
 			IsOrganizer = organizer[0]
-			return redirect(url_for('events', events = eventlist, organizer = IsOrganizer))
+			return redirect(url_for('events', event = eventlist, organizer = IsOrganizer))
 	return render_template('login.html')
 
 #Routes to the page to check if the input username is already in use
@@ -99,6 +99,9 @@ def addevent():
 def index():
 	return render_template('index.html')
 
+@app.route('allevents')
+	return render_template('allevents.html')
+
 #Helper function for the signup page. Executed when the user attempts to sign into the database
 def execsignup(username, password, IsOrganizer, cursor):
 	sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
@@ -119,8 +122,8 @@ def assignorganizer(userid, organization):
 
 #Currently used to route to the second page of the website
 @app.route('/events')
-def events(events, organizer):
-	return render_template('events.html', event = events, isorganizer = organizer)
+def events(event, organizer):
+	return render_template('events.html', events = event, isorganizer = organizer)
 
 #Run the server
 if __name__ == '__main__':
