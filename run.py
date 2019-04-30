@@ -78,7 +78,7 @@ def addevent():
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.curosr()
 	cursor.execute("SELECT")
-	return render_template('addevent.html')
+	return render_template('add.html')
 
 #Used to render the webpage for the main website
 @app.route('/')
