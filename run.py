@@ -86,6 +86,7 @@ def signup():
 	return render_template('signup.html')
 
 #Routes to the addevent page to add an event to the website
+# THIS IS NOT USED AT THE MOMENT
 @app.route("/addevent", methods=['GET', 'POST'])
 def addevent():
 	username = str(request.form['username'])
@@ -104,6 +105,7 @@ def allevents():
 	return render_template('allevents.html')
 
 #Helper function for the signup page. Executed when the user attempts to sign into the database
+# THIS IS NOT USED AT THE MOMENT
 def execsignup(username, password, IsOrganizer, cursor):
 	sql = "INSERT INTO Users(name, password, IsOrganizer) VALUES(\'{}\',\'{}\',{})".format(username,password,IsOrganizer)
 	database = mysql.connector.connect(**config['mysql.connector'])
@@ -112,6 +114,8 @@ def execsignup(username, password, IsOrganizer, cursor):
 	cursor.close()
 	database.close()
 
+#Helper function for the signup page. Executed when the user states that they are a member of an org.
+# Inserts userid and orginizationid into the member_of table
 def assignorganizer(userid, organization):
 	sql = "INSERT INTO member_of VALUES({},{})".format(userid,organization)
 	database = mysql.connector.connect(**config['mysql.connector'])
@@ -122,9 +126,10 @@ def assignorganizer(userid, organization):
 	database.close()
 
 #Currently used to route to the second page of the website
-@app.route('/events')
+#TODO: FIGURE OUT HOW TO PARSE INFORMATION PASSED TO FUNCTION
+@app.route('/events/')
 def events(event, organizer):
-	return render_template('events.html', events = event, isorganizer = organizer)
+	return render_template('events.html', events = events, isorganizer = organizer)
 
 #Run the server
 if __name__ == '__main__':
