@@ -189,7 +189,7 @@ def updateevent(username):
 		return render_template('update.html', results = returnlist)
 	return "Illegal Access"
 
-def generateupdatequery(event_id, caterer, date, price, location)
+def generateupdatequery(event_id, caterer, date, price, location):
 	event_update = "UPDATE Events SET dates = '" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = (select l.id from Locations l where l.name = '" + location + "') WHERE Events.id = CAST('" + str(event_id) + "' as UNSIGNED);"
 	catered_by_delete = "Delete from catered_by where catered_by.event_id = CAST('" + str(event_id) + "' as UNSIGNED)"
 	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) SELECT CAST('" + str(event_id) + "' as UNSIGNED), c.id from Caterers c WHERE c.name = '" + caterer + "';"
