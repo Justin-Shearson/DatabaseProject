@@ -239,7 +239,6 @@ def freeevents():
 @app.route("/updateuser/<username>/", methods=['GET','POST'])
 def updateuser(username):
 	if request.method =='POST':
-		username = str(request.form[''])
 		password = str(request.form['password'])
 		print(password)
 		location = str(request.form['location'])
