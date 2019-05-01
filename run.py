@@ -136,6 +136,7 @@ def deleteevent(username):
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
 		return render_template('delete.html', results = returnlist)
+	return "Illegal Access"
 
 
 def generatedeletequery(event_id):
