@@ -242,7 +242,7 @@ def preferredevents(username):
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-		sql = "SELECT count(e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.id = p.caterer_id;"
+		sql = "SELECT count(e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.caterer_id = p.caterer_id;"
 		cursor.execute(sql)
 		count = cursor.fetchone()
 		truecount = count[0]
