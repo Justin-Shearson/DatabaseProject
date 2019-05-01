@@ -43,6 +43,26 @@
 						</form>
 					</div>
 				</div>
+				<!-- Script to make the modal popup form work. -->
+				<script type="text/javascript">
+					var modal= document.getElementById('myModal');
+					var btn = document.getElementById("myBtn");
+					var span = document.getElementById("close")[0];
+
+					btn.onclick= function() {
+						modal.style.display = "block";
+					}
+
+					span.onclick = function() {
+						modal.style.display = "none";
+					}
+
+					window.onclick = function(event) {
+						if(event.target == modal){
+							modal.style.display = "none";
+						}
+					}
+				</script>
 				<td>{{item[1]}}</td>
 				<td>{{item[2]}}</td>
 				<td>{{item[3]}}</td>
@@ -52,26 +72,6 @@
 			</tr>
 			{% endfor %}
 			<!--</form>-->
-			<!-- Script to make the modal popup form work. -->
-			<script type="text/javascript">
-				var modal= document.getElementById('myModal');
-				var btn = document.getElementById("myBtn");
-				var span = document.getElementById("close")[0];
-
-				btn.onclick= function() {
-					modal.style.display = "block";
-				}
-
-				span.onclick = function() {
-					modal.style.display = "none";
-				}
-
-				window.onclick = function(event) {
-					if(event.target == modal){
-						modal.style.display = "none";
-					}
-				}
-			</script>
 		</table>
 	</body>
 </html>
