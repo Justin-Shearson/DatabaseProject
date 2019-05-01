@@ -123,7 +123,7 @@ def deleteevent(username):
 			database.commit()	
 			cursor.close()
 			database.close()
-		sql = """SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
+		sql = """SELECT e.id, e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
 		JOIN catered_by c on e.id = c.event_id and e.dates > now()
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Organizations o on o.id = l.organization_id
