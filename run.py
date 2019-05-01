@@ -135,7 +135,7 @@ def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
 def generateInsertQuery(event_name,date, organization, caterer, price, location):
-	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', price =CAST('" + str(price) + "' as INT), location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
+	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', price =CAST('" + str(price) + "' as UNSIGNED), location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
 	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
 	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
 	returndict = {
