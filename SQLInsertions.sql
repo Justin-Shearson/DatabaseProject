@@ -1,4 +1,4 @@
-
+[(&#39;Yeet&#39;, datetime.datetime(2019, 5, 4, 0, 0), &#39;KSL&#39;, &#39;Chipotle&#39;, &#39;USG&#39;, Decimal(&#39;0&#39;))]
 /* Insertions into locations can be done using this SQL*/
 INSERT INTO Locations (name, hub)
 Values ('Thwing', 'Center'),
