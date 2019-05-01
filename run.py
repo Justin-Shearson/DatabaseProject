@@ -262,7 +262,7 @@ def freeevents():
 		returnlist = cursor.fetchall()
 		cursor.close()
 		database.close()
-		return render_template('free.html', results = returnlist, count = count)
+		return render_template('free.html', results = returnlist)
 	return "You died"
 
 @app.route("/updateuser/<username>/", methods=['GET','POST'])
