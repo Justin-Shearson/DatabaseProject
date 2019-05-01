@@ -66,6 +66,7 @@
   opacity: 1;
 }
 
+/* Format for the tables in the update.html page. */
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
