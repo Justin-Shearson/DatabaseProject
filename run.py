@@ -152,7 +152,7 @@ def deleteevent(username):
 		return render_template('delete.html', results = returnlist)
 	return "Illegal Access"
 
-@app.route("/updateevent/" , methods=['GET','POST'])
+@app.route("/updateevent/<username>/" , methods=['GET','POST'])
 def updateevent(username):
 	if userIsOrganizer(username):
 		if request.method == 'POST':
