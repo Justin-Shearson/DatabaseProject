@@ -106,6 +106,48 @@ def addevent(username):
 		return render_template('add.html')
 	return "Illegal Access"
 
+@app.route("/deleteevent/<username>/<event_id>/", methods=['GET','POST'])
+def deleteevent(username, event_id):
+	if userIsOrganizer(username):
+		if request.method == 'POST':
+			sql = generatedeletequery(event_id)
+			database = mysql.connector.connect(**config['mysql.connector'])
+			cursor = database.cursor()
+			print(sqldict["event_delete"])
+			print(sqldict["catered_by_delete"])
+			print(sqldict["lead_by_delete"])
+			cursor.execute(sqldict["catered_by_delete"])
+			cursor.execute(sqldict["lead_by_delete"])
+			cursor.execute(sqldict["event_delete"])
+			database.commit()	
+			cursor.close()
+			database.close()
+		sql = """SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
+		JOIN catered_by c on e.id = c.event_id and e.dates > now()
+		JOIN lead_by l on e.id = l.event_id 
+		JOIN Organizations o on o.id = l.organization_id
+		JOIN User u on u.name = '""" + username + """'
+		JOIN member_of m on m.user_id = u.id and o.id = m.organization_id
+		JOIN Locations l2 on l2.id= e.location_id 
+		JOIN Caterers c2 on c2.id = c.caterer_id;"""
+		database = mysql.connector.connect(**config['mysql.connector'])
+		cursor = database.cursor()
+		cursor.execute(sql)
+		returnlist = cursor.fetchall()
+		return render_template('delete.html', results = returnlist)
+
+
+def generatedeletequery(event_id):
+	event_delete = "Delete from Events where Events.id = CAST('" + str(event_id) + "' as UNSIGNED)" 
+	catered_by_delete = "Delete from catered_by where catered_by.event_id = CAST('" + str(event_id) + "' as UNSIGNED)"
+	lead_by_delete = "Delete from lead_by where lead_by.event_id = CAST('" + str(event_id) + "' as UNSIGNED)"
+	returndict = {
+		"event_delete" : event_delete,
+		"catered_by_delete" : catered_by_delete,
+		"lead_by_delete" : lead_by_delete
+	}
+	return returndict
+
 @app.route("/allevents", methods=['GET','POST'])
 def allevents():
 	if request.method == 'GET':
