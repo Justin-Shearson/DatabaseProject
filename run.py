@@ -149,6 +149,8 @@ def deleteevent(username):
 		print(sql)
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
+		cursor.close()
+		database.close()
 		return render_template('delete.html', results = returnlist)
 	return "Illegal Access"
 
@@ -186,6 +188,8 @@ def updateevent(username):
 		print(sql)
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
+		cursor.close()
+		database.close()
 		return render_template('update.html', results = returnlist)
 	return "Illegal Access"
 
@@ -219,7 +223,8 @@ def allevents():
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-
+		cursor.close()
+		database.close()
 		return render_template('allevents.html', results = returnlist)
 	return "You died"
 
@@ -237,8 +242,13 @@ def preferredevents(username):
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-
-		return render_template('preferred.html', results = returnlist)
+		sql = "SELECT count(e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.id = p.caterer_id;"
+		cursor.execute(sql)
+		count = cursor.fetchone()
+		truecount = count[0]
+		cursor.close()
+		database.close()
+		return render_template('preferred.html', results = returnlist, count= truecount)
 	return "You died"
 
 
@@ -250,8 +260,9 @@ def freeevents():
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-
-		return render_template('free.html', results = returnlist)
+		cursor.close()
+		database.close()
+		return render_template('free.html', results = returnlist., count = count)
 	return "You died"
 
 @app.route("/updateuser/<username>/", methods=['GET','POST'])
@@ -337,6 +348,8 @@ def events(user):
 	cursor.execute(sql)
 	count = cursor.fetchone()
 	truecount = count[0]
+	cursor.close()
+	database.close()
 	print(count)
 	return render_template('events.html',user = user, count = truecount)
 
