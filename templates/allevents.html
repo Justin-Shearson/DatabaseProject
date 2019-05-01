@@ -34,10 +34,11 @@
 					<td><b>Location</b><td>
 					<td><b>Caterer</b><td>
 					<td><b>Organizer</b><td>
-					<td><b>Price</b><td>
+					<td><b>{{results}}</b><td>
 				</trow>
 			</thead>
-		<script language="javascript">
+		<script type="text/javascript">
+			alert("This alert box was called with the onload event");
 			var results = {{results}};
 			var table = document.getElementById("myRow");
 			var tbody = table.createTBody();
