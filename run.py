@@ -236,6 +236,41 @@ def freeevents():
 		return render_template('free.html', results = returnlist)
 	return "You died"
 
+@app.route("/updateuser/<username>/", methods=['GET','POST'])
+def updateuser(username):
+	if request.method =='POST':
+		username = str(request.form[''])
+		password = str(request.form['password'])
+		print(password)
+		location = str(request.form['location'])
+		print(location)
+		caterer = str(request.form['caterer'])
+		user_query = generateupdateuserquery(username, password, location)
+		database = mysql.connector.connect(**config['mysql.connector'])
+		cursor = database.cursor()
+		if user_query is not None:
+			cursor.execute(user_query)
+		if caterer is not None:
+			caterer_query = "INSERT INTO prefers(user_id, caterer_id) SELECT u.id , c.id from User u join Caterers c on u.name = '"+username+"' and c.name = '" + caterer + "';"
+			cursor.execute(caterer_query)
+		database.commit()	
+		cursor.close()
+		database.close()
+	return render_template('account.html')
+
+def generateupdateuserquery(username,password,location):
+	update_user = "UPDATE Users SET "
+	if location is None and password is None:
+		return None
+	if location is not None:
+		update_user = update_user + "Users.location_id = (Select l.id from Locations l where l.name = '" + location + "'),"
+	if password is not None:
+		update_user = update_user + "User.password = '" + password + "'"
+	else:
+		update_user = update_user[:-1]
+	update_user = update_user + "WHERE Users.name = '" + username +"';"
+	return update_user
+
 def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
