@@ -182,7 +182,12 @@ def userIsOrganizer(username):
 #Currently used to route to the second page of the website
 @app.route('/events/<user>')
 def events(user):
-	return render_template('events.html',user = user)
+	sql = "Select count(e.id) from Events e where e.dates > now() and e.price = 0"
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.cursor()
+	cursor.execute(sql)
+	count = cursor.fetchone()
+	return render_template('events.html',user = user, count = count)
 
 #Run the server
 if __name__ == '__main__':

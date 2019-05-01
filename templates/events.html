@@ -26,17 +26,17 @@
 		<div class="topnav">
 			<a href="{{ url_for('allevents')}}" target="f1">Home</a>
 			<a href="#" target="f1">Preferred Events</a>
-			<a href="{{ url_for('freeevents')}}" target="f1">Free Events</a>
+			<a href="{{ url_for('freeevents')}}" target="f1">Free Events({{count}})</a>
 			<!-- Using CSS dropdown class to create a dropdown button. -->
 			<div class="dropdown">
 				<button class="dropbtn">Edit Events</button>
 				<div class="dropdown-content">
-					<a href="{{url_for('addevent', username=user)}}" target="f1">Add Events</a>
+					<a href="{{url_for('addevent', username='foo')}}" target="f1">Add Events</a>
 					<a href="" target="f1">Update Events</a>
 					<a href="" target="f1">Delete Events</a>
 				</div>
 			</div>
-			<a href="{{url_for('index')}}" target="_top">Homepage</a>
+			<a href="{{url_for('index')}}" target="_top">Back to Homepage</a>
 			<a href="{{url_for('login')}}" target="_top">Back to Login</a>
 			<input type="text" placeholder="Search" name="search">
 		</div>
