@@ -1,0 +1,27 @@
+<!-- Web page for the account settings of the user. -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Link to the CSS used for this html page -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+		<title>Account Settings, Users can update their settings and preferences on this page.</title>
+	</head>
+	<body style="background-color: lightblue;">
+		<h2>Account Settings</h2>
+		<!-- Form that allows user to update settings. -->
+		<form action="" method="POST">
+			<!-- Allows user to change password. -->
+			<label id="bcenter" for="password"><b>Change Password</b></label>
+			<input id="bcenter" type="password" placeholder="Enter password" name="password">
+			<!-- Allows user to add a preferred caterer. -->
+			<label id="bcenter" for="caterer"><b>Add preferred caterer</b></label>
+			<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer">
+			<!-- Allows user to add a preferred location. -->
+			<label id="bcenter" for="location"><b>Add preferred location</b></label>
+			<input id="bcenter" type="text" placeholder="Enter location" name="location">
+			<!-- Button to send information to our back-end. -->
+			<buttoni id="bcenter" type="Submit">Update Settings</button>
+		</form>
+
+	</body>
+</html>
