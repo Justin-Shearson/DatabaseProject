@@ -187,8 +187,9 @@ def events(user):
 	cursor = database.cursor()
 	cursor.execute(sql)
 	count = cursor.fetchone()
+	truecount = count[0]
 	print(count)
-	return render_template('events.html',user = user, count = count)
+	return render_template('events.html',user = user, count = truecount)
 
 #Run the server
 if __name__ == '__main__':
