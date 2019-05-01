@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect, request
 import mysql.connector
 import time
 import datetime
+import json
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -113,7 +114,7 @@ def allevents():
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-		return render_template('allevents.html', results = returnlist)
+		return render_template('allevents.html', results = json.dumps(returnlist))
 	return "You died"
 
 def convertdatetime(date):
