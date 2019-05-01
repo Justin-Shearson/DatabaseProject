@@ -194,8 +194,8 @@ def generateupdatequery(event_id, caterer, date, price, location):
 	catered_by_delete = "Delete from catered_by where catered_by.event_id = CAST('" + str(event_id) + "' as UNSIGNED)"
 	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) SELECT CAST('" + str(event_id) + "' as UNSIGNED), c.id from Caterers c WHERE c.name = '" + caterer + "';"
 	returndict = {
-		"event_update" : event_update
-		"catered_by_delete" : catered_by_delete
+		"event_update" : event_update,
+		"catered_by_delete" : catered_by_delete,
 		"catered_insert" : catered_insert
 	}
 
