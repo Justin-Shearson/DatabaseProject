@@ -1,9 +1,35 @@
+<!-- Allows the user to delete an event. -->
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/events.css') }}">
+		<title>Page that allows the user to delete events.</title>
 	</head>
-	<body>
-
+	<body style="background-color: lightblue;">
+		<h2 id="bcenter">Delete Events</h2>
+		<table id="all">
+			<tr>
+				<th>Delete</th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Location</th>
+				<th>Caterer</th>
+				<th>Organization</th>
+				<th>Price</th>
+			</tr>
+			<form action="" method="POST">
+			{% for item in results %}
+			<button type="submit" name="event_id" value="{{item[0]}}"></button>
+			<tr>
+				<td>{{item[1]}}</td>
+				<td>{{item[2]}}</td>
+				<td>{{item[3]}}</td>
+				<td>{{item[4]}}</td>
+				<td>{{item[5]}}</td>
+				<td>{{item[6]}}</td>
+			</tr>
+			{% endfor %}
+			</form>
+		</table>
 	</body>
 </html>
