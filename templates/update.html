@@ -27,9 +27,6 @@
 						<p>Update Event: {{item[1]}}</p>
 						<!-- Form that allows the user to input the data into the database. -->
 						<form action="" method="POST">
-							<label id="bcenter" for="organization"><b>Event Organization</b></label>
-							<input id="bcenter" type="text" placeholder="Enter organization" name="organization" required>
-
 							<label id="bcenter" for="caterer"><b>Event Caterer</b></label>
 							<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
 
@@ -46,6 +43,26 @@
 						</form>
 					</div>
 				</div>
+				<!-- Script to make the modal popup form work. -->
+				<script type="text/javascript">
+					var modal= document.getElementById('myModal');
+					var btn = document.getElementById("myBtn");
+					var span = document.getElementById("close")[0];
+
+					btn.onclick= function() {
+						modal.style.display = "block";
+					}
+
+					span.onclick = function() {
+						modal.style.display = "none";
+					}
+
+					window.onclick = function(event) {
+						if(event.target == modal){
+							modal.style.display = "none";
+						}
+					}
+				</script>
 				<td>{{item[1]}}</td>
 				<td>{{item[2]}}</td>
 				<td>{{item[3]}}</td>
@@ -55,26 +72,6 @@
 			</tr>
 			{% endfor %}
 			<!--</form>-->
-			<!-- Script to make the modal popup form work. -->
-			<script type="text/javascript">
-				var modal= document.getElementById('myModal');
-				var btn = document.getElementById("myBtn");
-				var span = document.getElementById("close")[0];
-
-				btn.onclick= function() {
-					modal.style.display = "block";
-				}
-
-				span.onclick = function() {
-					modal.style.display = "none";
-				}
-
-				window.onclick = function(event) {
-					if(event.target == modal){
-						modal.style.display = "none";
-					}
-				}
-			</script>
 		</table>
 	</body>
 </html>
