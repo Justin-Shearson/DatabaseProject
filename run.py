@@ -106,10 +106,11 @@ def addevent(username):
 		return render_template('add.html')
 	return "Illegal Access"
 
-@app.route("/deleteevent/<username>/<event_id>/", methods=['GET','POST'])
-def deleteevent(username, event_id):
+@app.route("/deleteevent/<username>/", methods=['GET','POST'])
+def deleteevent(username):
 	if userIsOrganizer(username):
 		if request.method == 'POST':
+			event_id = str(request.form['event_id'])
 			sql = generatedeletequery(event_id)
 			database = mysql.connector.connect(**config['mysql.connector'])
 			cursor = database.cursor()
