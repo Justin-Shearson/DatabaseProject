@@ -108,6 +108,17 @@ def addevent(username):
 		return render_template('add.html')
 	return "Illegal Access"
 
+def generateInsertQuery(event_name,date, organization, caterer, price, location):
+	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
+	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
+	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
+	returndict = {
+		'event_insert' : event_insert,
+		'lead_insert' : lead_insert,
+		'catered_insert' : catered_insert
+	}
+	return returndict
+
 @app.route("/deleteevent/<username>/", methods=['GET','POST'])
 def deleteevent(username):
 	if userIsOrganizer(username):
@@ -145,7 +156,23 @@ def deleteevent(username):
 def updateevent(username):
 	if userIsOrganizer(username):
 		if request.method == 'POST':
-
+			event_id = str(request.form['event_id'])
+			caterer = str(request.form['caterer'])
+			date = str(request.form['date'])
+			price = int(request.form['price'])
+			location = str(request.form['location'])
+			sqldict= generateupdatequery(event_id,caterer,date,price,location)
+			database = mysql.connector.connect(**config['mysql.connector'])
+			cursor = database.cursor()
+			print(sqldict["event_update"])
+			print(sqldict["catered_by_delete"])
+			print(sqldict["catered_insert"])
+			cursor.execute(sqldict["catered_by_delete"])
+			cursor.execute(sqldict["lead_by_delete"])
+			cursor.execute(sqldict["event_delete"])
+			database.commit()	
+			cursor.close()
+			database.close()
 		sql = """SELECT e.id, e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
 		JOIN catered_by c on e.id = c.event_id and e.dates > now()
 		JOIN lead_by l on e.id = l.event_id 
@@ -162,7 +189,15 @@ def updateevent(username):
 		return render_template('update.html', results = returnlist)
 	return "Illegal Access"
 
-
+def generateupdatequery(event_id, caterer, date, price, location)
+	event_update = "UPDATE Events SET dates = '" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = (select l.id from Locations l where l.name = '" + location + "') WHERE Events.id = CAST('" + str(event_id) + "' as UNSIGNED);"
+	catered_by_delete = "Delete from catered_by where catered_by.event_id = CAST('" + str(event_id) + "' as UNSIGNED)"
+	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) SELECT CAST('" + str(event_id) + "' as UNSIGNED), c.id from Caterers c WHERE c.name = '" + caterer + "';"
+	returndict = {
+		"event_update" : event_update
+		"catered_by_delete" : catered_by_delete
+		"catered_insert" : catered_insert
+	}
 
 def generatedeletequery(event_id):
 	event_delete = "Delete from Events where Events.id = CAST('" + str(event_id) + "' as UNSIGNED)" 
@@ -203,16 +238,7 @@ def freeevents():
 def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
-def generateInsertQuery(event_name,date, organization, caterer, price, location):
-	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
-	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
-	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
-	returndict = {
-		'event_insert' : event_insert,
-		'lead_insert' : lead_insert,
-		'catered_insert' : catered_insert
-	}
-	return returndict
+
 #Used to render the webpage for the main website
 @app.route('/')
 def index():
