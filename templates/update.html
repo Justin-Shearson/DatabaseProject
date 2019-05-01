@@ -20,49 +20,28 @@
 			<!--<form action="" method="POST">-->
 			{% for item in results %}
 			<tr>
-				<td><button id="myBtn" value="{{item[0]}}">Update</button></td>
-				<div id="myModal" class="modal">
-					<div class="modal-content">
-						<span class="close">&times;</span>
-						<p>Update Event: {{item[1]}}</p>
-						<!-- Form that allows the user to input the data into the database. -->
-						<form action="" method="POST">
-							<label id="bcenter" for="caterer"><b>Event Caterer</b></label>
-							<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
+				<td><button class="open-button" onclick="openForm()" value="{{item[0]}}">Update</button></td>
+				<div class="form-popup" id="myForm">
+					<span class="close">&times;</span>
+					<p>Update Event: {{item[1]}}</p>
+					<!-- Form that allows the user to input the data into the database. -->
+					<form action="" method="POST" class="form-container">
+						<label id="bcenter" for="caterer"><b>Event Caterer</b></label>
+						<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
 
-							<label id="bcenter" for="price"><b>Event Price</b></label>
-							<input id="bcenter" type="text" placeholder="Enter price" name="price" required>
+						<label id="bcenter" for="price"><b>Event Price</b></label>
+						<input id="bcenter" type="text" placeholder="Enter price" name="price" required>
 
-							<label id="bcenter" for="location"><b>Event Location</b></label>
-							<input id="bcenter" type="text" placeholder="Enter location" name="location" required>
+						<label id="bcenter" for="location"><b>Event Location</b></label>
+						<input id="bcenter" type="text" placeholder="Enter location" name="location" required>
 
-							<label id="bcenter" for="date"><b>Event Date</b></label>
-							<input id="bcenter" type="date" placeholder="Enter date" name="date" required>
+						<label id="bcenter" for="date"><b>Event Date</b></label>
+						<input id="bcenter" type="date" placeholder="Enter date" name="date" required>
 
-							<button id="bcenter" name="event_id" value="{{item[0]}}" type="Submit">Submit Event</button>
-						</form>
-					</div>
+						<button id="bcenter" name="event_id" value="{{item[0]}}" type="Submit" class="btn">Submit Event</button>
+						<button id="bcenter" type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+					</form>
 				</div>
-				<!-- Script to make the modal popup form work. -->
-				<script type="text/javascript">
-					var modal= document.getElementById("myModal");
-					var btn = document.getElementById("myBtn");
-					var span = document.getElementById("close")[0];
-
-					btn.onclick= function() {
-						modal.style.display = "block";
-					}
-
-					span.onclick = function() {
-						modal.style.display = "none";
-					}
-
-					window.onclick = function(event) {
-						if(event.target == modal){
-							modal.style.display = "none";
-						}
-					}
-				</script>
 				<td>{{item[1]}}</td>
 				<td>{{item[2]}}</td>
 				<td>{{item[3]}}</td>
@@ -72,6 +51,15 @@
 			</tr>
 			{% endfor %}
 			<!--</form>-->
+			<!-- Script to make the modal popup form work. -->
+			<script>
+				function openForm() {
+  					document.getElementById("myForm").style.display = "block";
+				}
+				function closeForm() {
+  					document.getElementById("myForm").style.display = "none";
+				}
+			</script>
 		</table>
 	</body>
 </html>
