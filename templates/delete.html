@@ -15,12 +15,12 @@
 				<th>Location</th>
 				<th>Caterer</th>
 				<th>Organization</th>
-				<th>{{results}}</th>
+				<th>Price</th>
 			</tr>
 			<form action="" method="POST">
 			{% for item in results %}
-			<button type="submit" name="event_id" value="{{item[0]}}">Delete</button>
 			<tr>
+				<td><button type="submit" name="event_id" value="{{item[0]}}">Delete</button></td>
 				<td>{{item[1]}}</td>
 				<td>{{item[2]}}</td>
 				<td>{{item[3]}}</td>
