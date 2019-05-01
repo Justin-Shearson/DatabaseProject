@@ -250,7 +250,7 @@ def updateuser(username):
 		if user_query is not None:
 			cursor.execute(user_query)
 		if caterer is not None:
-			caterer_query = "INSERT INTO prefers(user_id, caterer_id) SELECT u.id , c.id from User u join Caterers c on u.name = '"+username+"' and c.name = '" + caterer + "';"
+			caterer_query = "INSERT INTO prefers(user_id, caterer_id) SELECT u.id , c.id from Users u join Caterers c on u.name = '"+username+"' and c.name = '" + caterer + "';"
 			cursor.execute(caterer_query)
 		database.commit()	
 		cursor.close()
