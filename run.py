@@ -264,7 +264,7 @@ def generateupdateuserquery(username,password,location):
 	if location is not None:
 		update_user = update_user + "Users.locations_id = (Select l.id from Locations l where l.name = '" + location + "'),"
 	if password is not None:
-		update_user = update_user + "User.password = '" + password + "'"
+		update_user = update_user + "Users.password = '" + password + "'"
 	else:
 		update_user = update_user[:-1]
 	update_user = update_user + "WHERE Users.name = '" + username +"';"
