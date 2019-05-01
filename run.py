@@ -245,6 +245,7 @@ def updateuser(username):
 		print(location)
 		caterer = str(request.form['caterer'])
 		user_query = generateupdateuserquery(username, password, location)
+		print(user_query)
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		if user_query is not None:
