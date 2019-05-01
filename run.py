@@ -80,6 +80,8 @@ def signup():
 			return redirect(url_for('login'))
 	return render_template('signup.html')
 
+
+
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent/<username>", methods=['GET', 'POST'])
 def addevent(username):
@@ -138,6 +140,28 @@ def deleteevent(username):
 		returnlist = cursor.fetchall()
 		return render_template('delete.html', results = returnlist)
 	return "Illegal Access"
+
+@app.route("/updateevent/" , methods=['GET','POST'])
+def updateevent(username):
+	if userIsOrganizer(username):
+		if request.method == 'POST':
+
+		sql = """SELECT e.id, e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
+		JOIN catered_by c on e.id = c.event_id and e.dates > now()
+		JOIN lead_by l on e.id = l.event_id 
+		JOIN Organizations o on o.id = l.organization_id
+		JOIN Users u on u.name = '""" + username + """'
+		JOIN member_of m on m.user_id = u.id and o.id = m.organization_id
+		JOIN Locations l2 on l2.id= e.location_id 
+		JOIN Caterers c2 on c2.id = c.caterer_id;"""
+		database = mysql.connector.connect(**config['mysql.connector'])
+		cursor = database.cursor()
+		print(sql)
+		cursor.execute(sql)
+		returnlist = cursor.fetchall()
+		return render_template('update.html', results = returnlist)
+	return "Illegal Access"
+
 
 
 def generatedeletequery(event_id):
