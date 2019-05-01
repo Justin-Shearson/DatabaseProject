@@ -223,6 +223,24 @@ def allevents():
 		return render_template('allevents.html', results = returnlist)
 	return "You died"
 
+@app.route("/preferredevents/<username>", methods=['GET','POST'])
+def preferredevents(username):
+	if request.method == 'GET':
+		sql = """SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
+		JOIN catered_by c on e.id = c.event_id and e.dates > now() 
+		JOIN lead_by l on e.id = l.event_id 
+		JOIN Locations l2 on l2.id= e.location_id 
+		JOIN Caterers c2 on c2.id = c.caterer_id 
+		JOIN Organizations o on o.id = l.organization_id
+		JOIN User u on u.name = '"""+username +"' JOIN prefers p on u.id = p.user_id and c2.id = p.caterer_id;"
+		database = mysql.connector.connect(**config['mysql.connector'])
+		cursor = database.cursor()
+		cursor.execute(sql)
+		returnlist = cursor.fetchall()
+
+		return render_template('preferred.html', results = returnlist)
+	return "You died"
+
 
 @app.route("/freeevents", methods=['GET','POST'])
 def freeevents():
