@@ -2,30 +2,32 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- Link to the CSS used for this html page -->
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
 		<title>Page to add events to the database.</title>
 	</head>
 	<body>
 		<!-- Form that allows the user to input the data into the database. -->
 		<form action="" method="POST">
+			<!-- Enter the name of the event. -->
 			<label id="bcenter" for="name"><b>Event Name</b></label>
 			<input id="bcenter" type="text" placeholder="Enter name" name="name" required>
-
+			<!-- Enter the name of the organization. -->
 			<label id="bcenter" for="organization"><b>Event Organization</b></label>
 			<input id="bcenter" type="text" placeholder="Enter organization" name="organization" required>
-
+			<!-- Enter the name of the caterer. -->
 			<label id="bcenter" for="caterer"><b>Event Caterer</b></label>
 			<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
-
+			<!-- Enter the price of the event. -->
 			<label id="bcenter" for="price"><b>Event Price</b></label>
 			<input id="bcenter" type="text" placeholder="Enter price" name="price" required>
-
+			<!-- Enter the location of the event. -->
 			<label id="bcenter" for="location"><b>Event Location</b></label>
 			<input id="bcenter" type="text" placeholder="Enter location" name="location" required>
-
+			<!-- Enter the date of the event. -->
 			<label id="bcenter" for="date"><b>Event Date</b></label>
 			<input id="bcenter" type="date" placeholder="Enter date" name="date" required>
-
+			<!-- Submit the event details to our back-end. -->
 			<button id="bcenter" type="Submit">Submit Event</button>
 		</form>
 	</body>

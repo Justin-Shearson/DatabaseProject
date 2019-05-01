@@ -7,7 +7,6 @@
 	<head>
 		<!-- Link to the CSS used for this html page -->
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/spstyles.css') }}">
-		<!-- Title of the website: Food@CWRU -->
 		<title>Food@CWRU, a platform to find Case events with food.</title>
 	</head>
 	<!-- The body of the web page. -->
@@ -36,9 +35,9 @@
 					<a href="{{url_for('deleteevent', username='user')}}" target="f1">Delete Events</a>
 				</div>
 			</div>
+			<a href="{{url_for('updateuser', username='user')" target="f1">Account Settings</a>
 			<a href="{{url_for('index')}}" target="_top">Back to Homepage</a>
 			<a href="{{url_for('login')}}" target="_top">Back to Login</a>
-			<input type="text" placeholder="Search" name="search">
 		</div>
 		<iframe src="{{ url_for('allevents')}}" width="100%" height="600" style="border: none; background-color: lightblue; margin-top: 10px;" name="f1"></iframe>
 	</body>
