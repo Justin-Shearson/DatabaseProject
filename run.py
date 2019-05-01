@@ -198,6 +198,7 @@ def generateupdatequery(event_id, caterer, date, price, location):
 		"catered_by_delete" : catered_by_delete,
 		"catered_insert" : catered_insert
 	}
+	return returndict
 
 def generatedeletequery(event_id):
 	event_delete = "Delete from Events where Events.id = CAST('" + str(event_id) + "' as UNSIGNED)" 
