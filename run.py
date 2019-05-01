@@ -111,7 +111,7 @@ def deleteevent(username):
 	if userIsOrganizer(username):
 		if request.method == 'POST':
 			event_id = str(request.form['event_id'])
-			sql = generatedeletequery(event_id)
+			sqldict = generatedeletequery(event_id)
 			database = mysql.connector.connect(**config['mysql.connector'])
 			cursor = database.cursor()
 			print(sqldict["event_delete"])
