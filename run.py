@@ -232,7 +232,7 @@ def preferredevents(username):
 		JOIN Locations l2 on l2.id= e.location_id 
 		JOIN Caterers c2 on c2.id = c.caterer_id 
 		JOIN Organizations o on o.id = l.organization_id
-		JOIN User u on u.name = '"""+username +"' JOIN prefers p on u.id = p.user_id and c2.id = p.caterer_id;"
+		JOIN Users u on u.name = '"""+username +"' JOIN prefers p on u.id = p.user_id and c2.id = p.caterer_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
