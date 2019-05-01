@@ -93,6 +93,9 @@ def addevent(username):
 			database = mysql.connector.connect(**config['mysql.connector'])
 			sqldict = generateInsertQuery(event_name,date,organization,caterer,price,location)
 			cursor = database.cursor()
+			print(sqldict["event_insert"])
+			print(sqldict["lead_insert"])
+			print(sqldict["catered_insert"])
 			cursor.execute(sqldict["event_insert"])
 			cursor.execute(sqldict["lead_insert"])
 			cursor.execute(sqldict["catered_insert"])
@@ -105,7 +108,7 @@ def addevent(username):
 @app.route("/allevents", methods=['GET','POST'])
 def allevents():
 	if request.method == 'GET':
-		sql = "SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN lead_by l on e.id = l.events_id JOIN Locations l2 on l2.id = e.locations_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
+		sql = "SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN lead_by l on e.id = l.events_id JOIN Locations l2 on l2.id= e.locations_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
@@ -117,7 +120,7 @@ def convertdatetime(date):
     return datetime.datetime.strptime (date, '%m/%d/%Y').strftime ('%Y-%m-%d')
 
 def generateInsertQuery(event_name,date, organization, caterer, price, location):
-	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', location_id = ( Select l.id from Locations l where l.id = '" + location + "');"
+	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
 	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
 	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
 	returndict = {
