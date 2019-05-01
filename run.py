@@ -127,7 +127,7 @@ def deleteevent(username):
 		JOIN catered_by c on e.id = c.event_id and e.dates > now()
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Organizations o on o.id = l.organization_id
-		JOIN User u on u.name = '""" + username + """'
+		JOIN Users u on u.name = '""" + username + """'
 		JOIN member_of m on m.user_id = u.id and o.id = m.organization_id
 		JOIN Locations l2 on l2.id= e.location_id 
 		JOIN Caterers c2 on c2.id = c.caterer_id;"""
