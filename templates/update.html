@@ -2,10 +2,79 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/modal.css') }}">
 		<title>Page that allows the user to update events.</title>
 	</head>
-	<body>
+	<body style="background-color: lightblue;">
+		<h2 id="bcenter">Delete Events</h2>
+		<table id="all">
+			<tr>
+				<th>Update</th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Location</th>
+				<th>Caterer</th>
+				<th>Organization</th>
+				<th>Price</th>
+			</tr>
+			<!--<form action="" method="POST">-->
+			{% for item in results %}
+			<tr>
+				<td><button id="myBtn" value="{{item[0]}}">Update</button></td>
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<p>Update Event: {{item[1]}}</p>
+						<!-- Form that allows the user to input the data into the database. -->
+						<form action="" method="POST">
+							<label id="bcenter" for="organization"><b>Event Organization</b></label>
+							<input id="bcenter" type="text" placeholder="Enter organization" name="organization" required>
 
+							<label id="bcenter" for="caterer"><b>Event Caterer</b></label>
+							<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
+
+							<label id="bcenter" for="price"><b>Event Price</b></label>
+							<input id="bcenter" type="text" placeholder="Enter price" name="price" required>
+
+							<label id="bcenter" for="location"><b>Event Location</b></label>
+							<input id="bcenter" type="text" placeholder="Enter location" name="location" required>
+
+							<label id="bcenter" for="date"><b>Event Date</b></label>
+							<input id="bcenter" type="date" placeholder="Enter date" name="date" required>
+
+							<button id="bcenter" name="event_id" value="{{item[0]}}" type="Submit">Submit Event</button>
+						</form>
+					</div>
+				</div>
+				<td>{{item[1]}}</td>
+				<td>{{item[2]}}</td>
+				<td>{{item[3]}}</td>
+				<td>{{item[4]}}</td>
+				<td>{{item[5]}}</td>
+				<td>{{item[6]}}</td>
+			</tr>
+			{% endfor %}
+			<!--</form>-->
+			<!-- Script to make the modal popup form work. -->
+			<script type="text/javascript">
+				var modal= document.getElementById('myModal');
+				var btn = document.getElementById("myBtn");
+				var span = document.getElementById("close")[0];
+
+				btn.onclick= function() {
+					modal.style.display = "block";
+				}
+
+				span.onclick = function() {
+					modal.style.display = "none";
+				}
+
+				window.onclick = function(event) {
+					if(event.target == modal){
+						modal.style.display = "none";
+					}
+				}
+			</script>
+		</table>
 	</body>
 </html>
