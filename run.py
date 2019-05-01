@@ -133,6 +133,7 @@ def deleteevent(username):
 		JOIN Caterers c2 on c2.id = c.caterer_id;"""
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
+		print(sql)
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
 		return render_template('delete.html', results = returnlist)
