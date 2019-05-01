@@ -6,6 +6,15 @@
 		<title>Page that allows the user to update events.</title>
 	</head>
 	<body style="background-color: lightblue;">
+		<!-- Script to make the modal popup form work. -->
+		<script>
+			function openForm() {
+  				document.getElementById("myForm").style.display = "block";
+			}
+			function closeForm() {
+  				document.getElementById("myForm").style.display = "none";
+			}
+		</script>
 		<h2 id="bcenter">Update Events</h2>
 		<table id="all">
 			<tr>
@@ -21,8 +30,7 @@
 			{% for item in results %}
 			<tr>
 				<td><button class="open-button" onclick="openForm()" value="{{item[0]}}">Update</button></td>
-				<div class="form-popup" id="myForm">
-					<span class="close">&times;</span>
+				<div style="display: none;" class="form-popup" id="myForm">
 					<p>Update Event: {{item[1]}}</p>
 					<!-- Form that allows the user to input the data into the database. -->
 					<form action="" method="POST" class="form-container">
@@ -51,15 +59,6 @@
 			</tr>
 			{% endfor %}
 			<!--</form>-->
-			<!-- Script to make the modal popup form work. -->
-			<script>
-				function openForm() {
-  					document.getElementById("myForm").style.display = "block";
-				}
-				function closeForm() {
-  					document.getElementById("myForm").style.display = "none";
-				}
-			</script>
 		</table>
 	</body>
 </html>
