@@ -8,6 +8,7 @@
 	</head>
 	<body style="background-color: lightblue;">
 		<h2>Delete Events</h2>
+		<!-- Table to show the events that can be deleted. -->
 		<table id="all">
 			<tr>
 				<th>Delete</th>
@@ -18,6 +19,7 @@
 				<th>Organization</th>
 				<th>Price ($)</th>
 			</tr>
+			<!-- Form that contains a loop to show all the items of the specific event. -->
 			<form action="" method="POST">
 			{% for item in results %}
 			<tr>

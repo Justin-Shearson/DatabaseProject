@@ -17,6 +17,7 @@
 			}
 		</script>
 		<h2>Update Events</h2>
+		<!-- Table to show the events that can be updated. -->
 		<table id="all">
 			<tr>
 				<th>Update</th>
@@ -27,24 +28,25 @@
 				<th>Organization</th>
 				<th>Price ($)</th>
 			</tr>
+			<!-- For loop to show the results, this contains a form that pops up at the top when the user selects that row. -->
 			{% for item in results %}
 			<tr>
-				<td><button class="open-button" onclick="openForm({{item[0]}})" value="{{item[0]}}">Update</button></td>
+				<td><button onclick="openForm({{item[0]}})" value="{{item[0]}}">Update</button></td>
 				<div class="form-popup" id="{{item[0]}}">
 					<p>Update Event: {{item[1]}}</p>
 					<!-- Form that allows the user to input the data into the database. -->
 					<form action="" method="POST">
 						<label id="bcenter" for="caterer"><b>Event Caterer</b></label>
-						<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer" required>
+						<input id="bcenter" type="text" placeholder="Enter caterer" name="caterer">
 
 						<label id="bcenter" for="price"><b>Event Price</b></label>
-						<input id="bcenter" type="text" placeholder="Enter price" name="price" required>
+						<input id="bcenter" type="text" placeholder="Enter price" name="price">
 
 						<label id="bcenter" for="location"><b>Event Location</b></label>
-						<input id="bcenter" type="text" placeholder="Enter location" name="location" required>
+						<input id="bcenter" type="text" placeholder="Enter location" name="location">
 
 						<label id="bcenter" for="date"><b>Event Date</b></label>
-						<input id="bcenter" type="date" placeholder="Enter date" name="date" required>
+						<input id="bcenter" type="date" placeholder="Enter date" name="date">
 
 						<button id="bcenter" name="event_id" value="{{item[0]}}" type="Submit" class="btn">Submit Event</button>
 						<button id="bcenter" type="button" class="btn cancel" onclick="closeForm({{item[0]}})">Cancel</button>
