@@ -109,7 +109,7 @@ def addevent(username):
 	return "Illegal Access"
 
 def generateInsertQuery(event_name,date, organization, caterer, price, location):
-	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', dates ='" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
+	event_insert =  "INSERT INTO Events SET name = '" + event_name + "', date ='" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = ( Select l.id from Locations l where l.name = '" + location + "');"
 	lead_insert = "INSERT INTO lead_by (event_id, organization_id) SELECT e.id, o.id from Organizations o, Events e where e.name = '"+ event_name +"' AND o.name = '" + organization + "';"
 	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) select e.id, c.id from Caterers c, Events e where e.name = '" +event_name + "' AND c.name = '" + caterer + "';"
 	returndict = {
@@ -136,8 +136,8 @@ def deleteevent(username):
 			database.commit()	
 			cursor.close()
 			database.close()
-		sql = """SELECT e.id, e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
-		JOIN catered_by c on e.id = c.event_id and e.dates > now()
+		sql = """SELECT e.id, e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
+		JOIN catered_by c on e.id = c.event_id and e.date > now()
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Organizations o on o.id = l.organization_id
 		JOIN Users u on u.name = '""" + username + """'
@@ -175,8 +175,8 @@ def updateevent(username):
 			database.commit()	
 			cursor.close()
 			database.close()
-		sql = """SELECT e.id, e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
-		JOIN catered_by c on e.id = c.event_id and e.dates > now()
+		sql = """SELECT e.id, e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
+		JOIN catered_by c on e.id = c.event_id and e.date > now()
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Organizations o on o.id = l.organization_id
 		JOIN Users u on u.name = '""" + username + """'
@@ -194,7 +194,7 @@ def updateevent(username):
 	return "Illegal Access"
 
 def generateupdatequery(event_id, caterer, date, price, location):
-	event_update = "UPDATE Events SET dates = '" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = (select l.id from Locations l where l.name = '" + location + "') WHERE Events.id = CAST('" + str(event_id) + "' as UNSIGNED);"
+	event_update = "UPDATE Events SET date = '" + date + "', price =CAST('" + str(price) + "' as DECIMAL), location_id = (select l.id from Locations l where l.name = '" + location + "') WHERE Events.id = CAST('" + str(event_id) + "' as UNSIGNED);"
 	catered_by_delete = "Delete from catered_by where catered_by.event_id = CAST('" + str(event_id) + "' as UNSIGNED)"
 	catered_insert = "INSERT INTO catered_by (event_id, caterer_id) SELECT CAST('" + str(event_id) + "' as UNSIGNED), c.id from Caterers c WHERE c.name = '" + caterer + "';"
 	returndict = {
@@ -218,7 +218,7 @@ def generatedeletequery(event_id):
 @app.route("/allevents", methods=['GET','POST'])
 def allevents():
 	if request.method == 'GET':
-		sql = "SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
+		sql = "SELECT e.name, e.date, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
@@ -231,8 +231,8 @@ def allevents():
 @app.route("/preferredevents/<username>", methods=['GET','POST'])
 def preferredevents(username):
 	if request.method == 'GET':
-		sql = """SELECT e.name, e.dates, l2.name, c2.name,o.name,e.price from Events e 
-		JOIN catered_by c on e.id = c.event_id and e.dates > now() 
+		sql = """SELECT e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
+		JOIN catered_by c on e.id = c.event_id and e.date > now() 
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Locations l2 on l2.id= e.location_id 
 		JOIN Caterers c2 on c2.id = c.caterer_id 
@@ -242,7 +242,7 @@ def preferredevents(username):
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-		sql = "SELECT count(e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.caterer_id = p.caterer_id;"
+		sql = "SELECT count(e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.caterer_id = p.caterer_id;"
 		cursor.execute(sql)
 		count = cursor.fetchone()
 		truecount = count[0]
@@ -255,7 +255,7 @@ def preferredevents(username):
 @app.route("/freeevents", methods=['GET','POST'])
 def freeevents():
 	if request.method == 'GET':
-		sql = "SELECT e.name, e.dates, l2.name, c2.name,o.name from Events e JOIN catered_by c on e.id = c.event_id and e.dates > now() and e.price = 0 JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
+		sql = "SELECT e.name, e.date, l2.name, c2.name,o.name from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() and e.price = 0 JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
@@ -292,7 +292,7 @@ def generateupdateuserquery(username,password,location):
 	if location is None and password is None:
 		return None
 	if location is not None:
-		update_user = update_user + "Users.locations_id = (Select l.id from Locations l where l.name = '" + location + "'),"
+		update_user = update_user + "Users.location_id = (Select l.id from Locations l where l.name = '" + location + "'),"
 	if password is not None:
 		update_user = update_user + "Users.password = '" + password + "'"
 	else:
@@ -342,7 +342,7 @@ def userIsOrganizer(username):
 #Currently used to route to the second page of the website
 @app.route('/events/<user>')
 def events(user):
-	sql = "Select count(e.id) from Events e where e.dates > now() and e.price = 0"
+	sql = "Select count(e.id) from Events e where e.date > now() and e.price = 0"
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
 	cursor.execute(sql)
