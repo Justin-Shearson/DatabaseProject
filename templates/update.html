@@ -17,6 +17,7 @@
 			}
 		</script>
 		<h2>Update Events</h2>
+		<!-- Table to show the events that can be updated. -->
 		<table id="all">
 			<tr>
 				<th>Update</th>
@@ -27,6 +28,7 @@
 				<th>Organization</th>
 				<th>Price ($)</th>
 			</tr>
+			<!-- For loop to show the results, this contains a form that pops up at the top when the user selects that row. -->
 			{% for item in results %}
 			<tr>
 				<td><button class="open-button" onclick="openForm({{item[0]}})" value="{{item[0]}}">Update</button></td>
