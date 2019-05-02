@@ -35,7 +35,7 @@ def login():
 		password = str(request.form['password'])
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
-		cursor.execute("SELECT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
+		cursor.execute("SELECT DISTINCT name FROM Users u WHERE u.name = %s and u.password = %s", (username, password))
 		user = cursor.fetchone()
 		cursor.close()
 		database.close()
@@ -51,13 +51,13 @@ def signup():
 	if request.method == 'POST':
 		username = str(request.form['username'])
 		password = str(request.form['password'])
-		organization = int(request.form['organization'])
+		organization = str(request.form['organization'])
 		IsOrganizer = 0
-		if organization is not 0:
+		if organization is not "":
 			IsOrganizer = 1
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()		
-		cursor.execute("SELECT name FROM Users WHERE Users.name = \'{}\'".format(username))
+		cursor.execute("SELECT DISTINCT name FROM Users WHERE Users.name = \'{}\'".format(username))
 		user = cursor.fetchone()
 
 		#If the user already exists
@@ -70,7 +70,7 @@ def signup():
 			cursor.execute(sql)
 			database.commit()
 			if IsOrganizer is 1:
-				cursor.execute("SELECT id FROM Users WHERE Users.name =\'{}\'".format(username))
+				cursor.execute("SELECT DISTINCT id FROM Users WHERE Users.name =\'{}\'".format(username))
 				user = cursor.fetchone()
 				userid = user[0]
 				assignorganizer(userid, organization)
@@ -78,9 +78,23 @@ def signup():
 			cursor.close()
 			database.close()
 			return redirect(url_for('login'))
-	return render_template('signup.html')
+	sql = "SELECT Organizations.name from Organizations;"
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.cursor()
+	user = cursor.execute(sql)	
+	organizations = cursor.fetchall()
+	cursor.close()
+	database.close()
+	return render_template('signup.html', results = organizations)
 
-
+def assignorganizer(userid, organization):
+	sql = "INSERT INTO member_of(user_id, organization_id) SET user_id = CAST('" + str(userid) + "' as UNSIGNED), SET organization_id = (SELECT o.id from Organizations o where o.name = '" + organization + "');"
+	database = mysql.connector.connect(**config['mysql.connector'])
+	cursor = database.cursor()
+	cursor.execute(sql)
+	database.commit()
+	cursor.close()
+	database.close()
 
 #Routes to the addevent page to add an event to the website
 @app.route("/addevent/<username>", methods=['GET', 'POST'])
@@ -136,7 +150,7 @@ def deleteevent(username):
 			database.commit()	
 			cursor.close()
 			database.close()
-		sql = """SELECT e.id, e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
+		sql = """SELECT DISTINCT e.id, e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
 		JOIN catered_by c on e.id = c.event_id and e.date > now()
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Organizations o on o.id = l.organization_id
@@ -175,7 +189,7 @@ def updateevent(username):
 			database.commit()	
 			cursor.close()
 			database.close()
-		sql = """SELECT e.id, e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
+		sql = """SELECT DISTINCT e.id, e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
 		JOIN catered_by c on e.id = c.event_id and e.date > now()
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Organizations o on o.id = l.organization_id
@@ -218,7 +232,7 @@ def generatedeletequery(event_id):
 @app.route("/allevents", methods=['GET','POST'])
 def allevents():
 	if request.method == 'GET':
-		sql = "SELECT e.name, e.date, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
+		sql = "SELECT DISTINCT e.name, e.date, l2.name, c2.name,o.name,e.price from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
@@ -231,7 +245,7 @@ def allevents():
 @app.route("/preferredevents/<username>", methods=['GET','POST'])
 def preferredevents(username):
 	if request.method == 'GET':
-		sql = """SELECT e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
+		sql = """SELECT DISTINCT e.name, e.date, l2.name, c2.name,o.name,e.price from Events e 
 		JOIN catered_by c on e.id = c.event_id and e.date > now() 
 		JOIN lead_by l on e.id = l.event_id 
 		JOIN Locations l2 on l2.id= e.location_id 
@@ -242,7 +256,7 @@ def preferredevents(username):
 		cursor = database.cursor()
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
-		sql = "SELECT count(e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.caterer_id = p.caterer_id;"
+		sql = "SELECT count(distinct e.id) from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() JOIN Users u on u.name = '"+username +"' JOIN prefers p on u.id = p.user_id and c.caterer_id = p.caterer_id;"
 		cursor.execute(sql)
 		count = cursor.fetchone()
 		truecount = count[0]
@@ -255,7 +269,7 @@ def preferredevents(username):
 @app.route("/freeevents", methods=['GET','POST'])
 def freeevents():
 	if request.method == 'GET':
-		sql = "SELECT e.name, e.date, l2.name, c2.name,o.name from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() and e.price = 0 JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
+		sql = "SELECT DISTINCT e.name, e.date, l2.name, c2.name,o.name from Events e JOIN catered_by c on e.id = c.event_id and e.date > now() and e.price = 0 JOIN lead_by l on e.id = l.event_id JOIN Locations l2 on l2.id= e.location_id JOIN Caterers c2 on c2.id = c.caterer_id JOIN Organizations o on o.id = l.organization_id;"
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		cursor.execute(sql)
@@ -289,11 +303,11 @@ def updateuser(username):
 
 def generateupdateuserquery(username,password,location):
 	update_user = "UPDATE Users SET "
-	if location is None and password is None:
+	if location is "" and password is "":
 		return None
-	if location is not None:
+	if location is not "":
 		update_user = update_user + "Users.location_id = (Select l.id from Locations l where l.name = '" + location + "'),"
-	if password is not None:
+	if password is not "":
 		update_user = update_user + "Users.password = '" + password + "'"
 	else:
 		update_user = update_user[:-1]
@@ -318,17 +332,9 @@ def execsignup(username, password, IsOrganizer, cursor):
 	cursor.close()
 	database.close()
 
-def assignorganizer(userid, organization):
-	sql = "INSERT INTO member_of VALUES({},{})".format(userid,organization)
-	database = mysql.connector.connect(**config['mysql.connector'])
-	cursor = database.cursor()
-	cursor.execute(sql)
-	database.commit()
-	cursor.close()
-	database.close()
 
 def userIsOrganizer(username):
-	sql = "SELECT name FROM Users WHERE Users.name = \'{}\' and Users.is_organizer = 1".format(username)
+	sql = "SELECT distinct name FROM Users WHERE Users.name = \'{}\' and Users.is_organizer = 1".format(username)
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
 	cursor.execute(sql)
@@ -342,7 +348,7 @@ def userIsOrganizer(username):
 #Currently used to route to the second page of the website
 @app.route('/events/<user>')
 def events(user):
-	sql = "Select count(e.id) from Events e where e.date > now() and e.price = 0"
+	sql = "Select  count(distinct e.id) from Events e where e.date > now() and e.price = 0"
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
 	cursor.execute(sql)
