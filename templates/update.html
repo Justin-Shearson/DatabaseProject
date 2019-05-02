@@ -31,7 +31,7 @@
 			<!-- For loop to show the results, this contains a form that pops up at the top when the user selects that row. -->
 			{% for item in results %}
 			<tr>
-				<td><button class="open-button" onclick="openForm({{item[0]}})" value="{{item[0]}}">Update</button></td>
+				<td><button onclick="openForm({{item[0]}})" value="{{item[0]}}">Update</button></td>
 				<div class="form-popup" id="{{item[0]}}">
 					<p>Update Event: {{item[1]}}</p>
 					<!-- Form that allows the user to input the data into the database. -->
