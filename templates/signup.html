@@ -33,15 +33,9 @@
 			<label for="org"><b>Organization. Select None if you are not a part of an organization.</b></label>
 			<select id="bcenter" name="organization">
 				<option value="0">None</option>
-				<option value="1">La Alianza</option>
-				<option value="1">AAA</option>
-				<option value="1">Taiwanese American Student Association</option>
-				<option value="1">Glee Club</option>
-				<option value="1">Johnson Fan Club</option>
-				<option value="1">UDC</option>
-				<option value="1">USG</option>
-				<option value="1">Film Society</option>
-				<option value="1">Juggling Club</option>
+				{% for item in results %}
+				<option value="{{item}}">{{item}}</option>
+				{% endfor %}
 			</select>
 			
 			<button id="bcenter" type="submit">Sign Up</button>
