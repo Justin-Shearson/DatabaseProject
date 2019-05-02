@@ -19,7 +19,10 @@
 -- Table structure for table `Caterers`
 --
 
+<<<<<<< HEAD:Dump20190430.sql
+=======
 
+>>>>>>> 76b9ea9e64785c07303388d47b7e174e26158f7b:Dump20190430.sql
 create user 'team6'@'localhost' identified by '5adad0da';
 grant all on team_6.* to 'team6'@'localhost';
 flush privileges;
@@ -56,12 +59,22 @@ CREATE TABLE `Events` (
   `name` varchar(45) DEFAULT NULL,
   `dates` datetime DEFAULT NULL,
   `price` decimal(2,0) DEFAULT '0',
+<<<<<<< HEAD:Dump20190430.sql
+  `location_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idEvents_UNIQUE` (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  KEY `event_location_idx` (`location_id`),
+  CONSTRAINT `event_location` FOREIGN KEY (`location_id`) REFERENCES `Locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+=======
   `locations_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idEvents_UNIQUE` (`id`),
   KEY `event_location_idx` (`locations_id`),
   CONSTRAINT `event_location` FOREIGN KEY (`locations_id`) REFERENCES `Locations` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+>>>>>>> 76b9ea9e64785c07303388d47b7e174e26158f7b:Dump20190430.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,10 +120,10 @@ DROP TABLE IF EXISTS `Organizations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Organizations` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(100) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,6 +153,7 @@ CREATE TABLE `Users` (
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `location_id_fk_idx` (`locations_id`),
   CONSTRAINT `location_id_fk` FOREIGN KEY (`locations_id`) REFERENCES `Locations` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+>>>>>>> 76b9ea9e64785c07303388d47b7e174e26158f7b:Dump20190430.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -267,4 +281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-30 10:27:35
+-- Dump completed on 2019-04-30 12:51:09
