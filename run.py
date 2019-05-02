@@ -92,7 +92,6 @@ def signup():
 	return render_template('signup.html', results = fixed_organizations)
 
 def assignorganizer(userid, organization):
-	print(organization)
 	sql = "INSERT INTO member_of SET user_id = CAST('" + str(userid) + "' as UNSIGNED), organization_id = ( Select o.id from Organizations o where o.name = '" + organization + "');"
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
@@ -115,9 +114,6 @@ def addevent(username):
 			database = mysql.connector.connect(**config['mysql.connector'])
 			sqldict = generateInsertQuery(event_name,date,organization,caterer,price,location)
 			cursor = database.cursor()
-			print(sqldict["event_insert"])
-			print(sqldict["lead_insert"])
-			print(sqldict["catered_insert"])
 			cursor.execute(sqldict["event_insert"])
 			cursor.execute(sqldict["lead_insert"])
 			cursor.execute(sqldict["catered_insert"])
@@ -146,9 +142,6 @@ def deleteevent(username):
 			sqldict = generatedeletequery(event_id)
 			database = mysql.connector.connect(**config['mysql.connector'])
 			cursor = database.cursor()
-			print(sqldict["event_delete"])
-			print(sqldict["catered_by_delete"])
-			print(sqldict["lead_by_delete"])
 			cursor.execute(sqldict["catered_by_delete"])
 			cursor.execute(sqldict["lead_by_delete"])
 			cursor.execute(sqldict["event_delete"])
@@ -165,7 +158,6 @@ def deleteevent(username):
 		JOIN Caterers c2 on c2.id = c.caterer_id;"""
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
-		print(sql)
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
 		cursor.close()
@@ -185,9 +177,6 @@ def updateevent(username):
 			sqldict= generateupdatequery(event_id,caterer,date,price,location)
 			database = mysql.connector.connect(**config['mysql.connector'])
 			cursor = database.cursor()
-			print(sqldict["event_update"])
-			print(sqldict["catered_by_delete"])
-			print(sqldict["catered_insert"])
 			cursor.execute(sqldict["catered_by_delete"])
 			cursor.execute(sqldict["catered_insert"])
 			cursor.execute(sqldict["event_update"])
@@ -204,7 +193,6 @@ def updateevent(username):
 		JOIN Caterers c2 on c2.id = c.caterer_id;"""
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
-		print(sql)
 		cursor.execute(sql)
 		returnlist = cursor.fetchall()
 		cursor.close()
@@ -288,12 +276,9 @@ def freeevents():
 def updateuser(username):
 	if request.method =='POST':
 		password = str(request.form['password'])
-		print(password)
 		location = str(request.form['location'])
-		print(location)
 		caterer = str(request.form['caterer'])
 		user_query = generateupdateuserquery(username, password, location)
-		print(user_query)
 		database = mysql.connector.connect(**config['mysql.connector'])
 		cursor = database.cursor()
 		if user_query is not None:
@@ -361,7 +346,6 @@ def events(user):
 	truecount = count[0]
 	cursor.close()
 	database.close()
-	print(count)
 	return render_template('events.html',user = user, count = truecount)
 
 #Run the server
