@@ -82,7 +82,7 @@ def signup():
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
 	user = cursor.execute(sql)	
-	organizations = cursor.fetchall
+	organizations = cursor.fetchall()
 	cursor.close()
 	database.close()
 	return render_template('signup.html', results = organizations)
