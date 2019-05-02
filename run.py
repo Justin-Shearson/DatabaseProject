@@ -83,12 +83,17 @@ def signup():
 	cursor = database.cursor()
 	user = cursor.execute(sql)	
 	organizations = cursor.fetchall()
+	fixed_organizations = []
+	for org in organizations:
+		org = org[0]
+		fixed_organizations.append(org)
 	cursor.close()
 	database.close()
-	return render_template('signup.html', results = organizations)
+	return render_template('signup.html', results = fixed_organizations)
 
 def assignorganizer(userid, organization):
-	sql = "INSERT INTO member_of(user_id, organization_id) SET user_id = CAST('" + str(userid) + "' as UNSIGNED), SET organization_id = (SELECT o.id from Organizations o where o.name = '" + organization + "');"
+	print(organization)
+	sql = "INSERT INTO member_of SET user_id = CAST('" + str(userid) + "' as UNSIGNED), organization_id = ( Select o.id from Organizations o where o.name = '" + organization + "');"
 	database = mysql.connector.connect(**config['mysql.connector'])
 	cursor = database.cursor()
 	cursor.execute(sql)
